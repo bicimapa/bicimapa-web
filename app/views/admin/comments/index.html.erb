@@ -1,0 +1,54 @@
+<section class="content-header">
+<h1>
+  <%= t(:comments) %>
+</h1>
+</section>
+
+<section class="content">
+  <%= display_notice notice %>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box">
+				<div class="box-header">
+          <h3 class="box-title"><%= t(:comments) %></h3>
+
+					<div class="box-tools">
+						<%= paginate @comments %>
+					</div>
+				</div><!-- /.box-header -->
+				<div class="box-body no-padding">
+					<table class="table">
+						<thead>
+							<tr>
+                <th><%= t :comment %></th>
+                <th><%= t :site_id %></th>
+                <th><%= t :created_at %></th>
+								<th></th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<% @comments.each do |comment| %>
+								<tr>
+									<td><%= comment.comment %></td>
+									<td><%= link_to comment.commentable_id, site_path(comment.commentable_id) %></td>
+                  <td><%= time_ago_in_words comment.created_at %> <%= t :ago %></td>
+									<td width="210px">
+
+										<div class="btn-group">
+											<%= link_to '<i class="fa fa-eye"></i>'.html_safe, admin_comment_path(comment), class: 'btn btn-default' %>
+											<%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_admin_comment_path(comment), class: 'btn btn-default' %>
+											<%= link_to '<i class="fa fa-trash"></i>'.html_safe, admin_comment_path(comment), method: :delete, data: { confirm: t('are_you_sure?') }, class: 'btn btn-danger' %>
+                    </div>
+                  </td>
+
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div><!-- /.box-body -->
+			</div><!-- /.box -->
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+  <%= display_button_bar(@comments, [:admin]) %>
+</section>

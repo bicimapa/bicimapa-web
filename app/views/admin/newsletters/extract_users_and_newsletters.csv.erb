@@ -1,0 +1,8 @@
+<%- headers = ['Email', 'Last Name', 'First Name'] -%>
+<%= CSV.generate_line headers -%>
+<%- @users.each do |user| -%>
+<%= CSV.generate_line([user.email, user.last_name, user.first_name]) -%>
+<%- end -%>
+<%- @newsletters.each do |newsletter| -%>
+<%= CSV.generate_line([newsletter.email, newsletter.last_name, newsletter.first_name]) -%>
+<%- end -%>

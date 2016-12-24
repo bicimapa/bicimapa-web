@@ -1,0 +1,59 @@
+
+<div class="container-fluid">
+
+  <!-- Team Members Row -->
+  <div class="row">
+    <div class="col-lg-12">
+      <h2 class="page-header"><%= t :our_team %></h2>
+    </div>
+    <div class="col-lg-3 text-center">
+      <%= image_tag "team/juandavid.jpg", class: "img-circle img-responsive img-center img-badge" %>
+      <h3>Juan David Reyes Paez<br/>
+        <small><%= t :bicimapa_founder %></small>
+      </h3>
+      <p><%= t :juan_david_role %></p>
+    </div>
+    <div class="col-lg-3 text-center">
+      <%= image_tag "team/alberto.jpg", class: "img-circle img-responsive img-center img-badge" %>
+      <h3>Alberto Alonso<br/>
+        <small><%= t :ux_designer %></small>
+      </h3>
+      <p><%= t :alberto_role %></p>
+    </div>
+    <div class="col-lg-3 text-center">
+      <%= image_tag "team/roland.jpg", class: "img-circle img-responsive img-center img-badge" %>
+      <h3>Roland Harper<br/>
+        <small><%= t :ux_designer %></small>
+      </h3>
+      <p><%= t :roland_role %></p>
+    </div>
+    <div class="col-lg-3 text-center">
+      <%= image_tag "team/yoann.jpg", class: "img-circle img-responsive img-center img-badge" %>
+      <h3>Yoann Lecuyer<br/>
+        <small><%= t :developper %></small>
+      </h3>
+      <p><%= t :yoann_role %></p>
+    </div>
+  </div>
+
+  <!-- Moderators Row -->
+  <div class="row">
+    <div class="col-lg-12">
+      <h2 class="page-header"><%= t :the_moderators %></h2>
+    </div>
+  
+    <% @moderators.each do |moderator| %>
+
+    <div class="col-lg-2 text-center">
+      <%= image_tag avatar_url(moderator), alt: t(:avatar), class: "img-circle img-responsive img-center img-badge" %>
+      <h3><%= moderator.full_name %><br/>
+        <small><%= moderator.zones.map { |z| z.name } .join(", ") %></small>
+      </h3>
+    </div>
+
+    <% end %>
+
+  </div>
+
+</div>
+

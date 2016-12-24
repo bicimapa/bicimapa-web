@@ -1,0 +1,19 @@
+<% announcement = Announcement.current %>
+
+<% if announcement != nil && cookies["announcement_" + announcement.id.to_s] != "hidden" %>
+
+<div class="modal fade" data-show="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close hide_announcement" data-dismiss="modal" data-announcementid="<%= announcement.id %>" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><%= announcement.try(:heading) || t(:annoucement) %></h4>
+      </div>
+      <div class="modal-body">
+        <p><%= announcement.body %></p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<% end %>

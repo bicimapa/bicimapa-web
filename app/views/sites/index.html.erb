@@ -1,0 +1,43 @@
+<h1>Listing sites</h1>
+
+<table border="1px">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Latitud</th>
+      <th>Longitud</th>
+      <th>Is active</th>
+      <th>Has been reviewed</th>
+      <th>Category</th>
+      <th>Added by</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sites.each do |site| %>
+      <tr>
+        <td><%= site.name %></td>
+        <td><%= site.description %></td>
+        <td><%= site.latitude %></td>
+        <td><%= site.longitude %></td>
+        <td><%= bool(site.is_active) %></td>
+        <td><%= bool(site.has_been_reviewed) %></td>
+	<% if site.category != nil then %>
+		<td><%= link_to site.category_name, category_path(site.category) %></td>
+	<% else %>
+		<td>Does not belong to a category</td>
+	<% end %>
+	<th><%= site.user_email %> <%= image_tag 'http://graph.facebook.com/picture?type=square', :style => "vertical-align:middle" %></th>
+	<td><%= link_to t(:show), site_path(site) %></td>
+        <td><%= link_to t(:edit), edit_site_path(site) %></td>
+        <td><%= link_to t(:destroy), site_path(site), method: :delete, data: { confirm: t('are_you_sure?') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Site', new_site_path %>

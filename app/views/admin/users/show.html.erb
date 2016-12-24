@@ -1,0 +1,54 @@
+<section class="content-header">
+<h1>
+  <%= @user.last_name %> <%= @user.first_name %>
+  <small><%= @user.email %></small>
+</h1>
+<div class="breadcrumb">
+  <small class="badge pull-right bg-<%= (@user.is_admin) ? "green":"red" %>" style="margin-left: 7px">admin</small>
+  <small class="badge pull-right bg-<%= (@user.is_moderator) ? "green":"red" %>">moderator</small>
+</div>
+</section>
+
+<section class="content">
+  <%= display_notice notice %>
+  <div class="row">
+    <div class="col-lg-3 col-xs-6">
+      <%= image_tag avatar_url(@user), alt: t(:avatar), class: "media-object thumbnail" %>
+    </div><!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-aqua">
+        <div class="inner">
+          <h3>
+            <%= @user.score %>
+          </h3>
+          <p>
+          Score
+          </p>
+        </div>
+        <div class="icon">
+          <i class="ion ion-trophy"></i>
+        </div>
+        <%= link_to "#", class: "small-box-footer" do %>
+          <%= t(:more_info) %> <i class="fa fa-arrow-circle-right"></i>
+        <% end %>
+      </div>
+    </div><!-- ./col -->
+  </div>
+  <h2 class="page-header">Details</h2>
+  <dl class="dl-horizontal">
+    <dt><%= t(:last_name) %></dt>
+    <dd><%= @user.last_name %></dd>
+    <dt><%= t(:first_name) %></dt>
+    <dd><%= @user.first_name %></dd>
+    <dt><%= t(:email) %></dt>
+    <dd><%= mail_to @user.email %></dd>
+    <dt><%= t(:facebook_UID) %></dt>
+    <dd><%= @user.facebook_uid %></dd>
+  </dl>
+</section>
+
+
+<%= link_to t(:edit), edit_admin_user_path(@user) %>
+<%= link_to t(:back), :back %>
+<%= link_to t(:destroy), admin_user_path(@user), method: :delete, data: { confirm: t('are_you_sure?') } %>

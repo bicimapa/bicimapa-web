@@ -1,0 +1,22 @@
+<div class="register-box">
+  <div class="register-logo">
+    <%= link_to t(:bicimapa), :root %>
+  </div>
+
+  <div class="register-box-body">
+    <p class="login-box-msg"><%= t(:please_enter_your_email_to_subscribre_to_the_newsletter) %></p>
+
+
+    <%= simple_form_for @newsletter do |f| %>
+
+    <%= f.input :email %>
+
+    <div style="text-align: center">
+      <%= f.submit t(:subscribe), class: "btn btn-primary" %>
+    </div>
+
+    <% end %>
+  </div><!-- /.form-box -->
+</div><!-- /.register-box -->
+
+

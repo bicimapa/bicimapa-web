@@ -1,0 +1,43 @@
+<h1>Listing categories</h1>
+
+<table border="1px">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Is public</th>
+      <th>Is active</th>
+      <th>Is initial</th>
+      <th>Variety</th>
+      <th>Color/Icon</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td><%= category.name %></td>
+        <td><%= category.description %></td>
+        <td><%= bool(category.is_public) %></td>
+        <td><%= bool(category.is_active) %></td>
+        <td><%= bool(category.is_initial) %></td>
+        <td><%= category.variety %></td>
+
+	<% if category.variety == "LIN" then %>
+		<td style="background-color:<%=category.color%>"><%= category.color %></td>
+	<% else %>
+		<td><%= image_tag category.icon.url %></td>
+	<% end %>
+
+        <td><%= link_to t(:show), category_path(category) %></td>
+        <td><%= link_to t(:edit), edit_category_path(category) %></td>
+        <td><%= link_to t(:destroy), category_path(category), method: :delete, data: { confirm: t('are_you_sure?') } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Category', new_category_path %>

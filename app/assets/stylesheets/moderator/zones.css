@@ -1,0 +1,17 @@
+/* http://stackoverflow.com/questions/11243075/css-scale-height-to-match-width-possibly-with-a-formfactor */
+
+.map-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 90%;
+}
+
+.map-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.map img {
+	max-width: none !important;
+}

@@ -1,0 +1,140 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require bootstrap/less/bootstrap
+ *= require fontawesome/less/font-awesome
+ *= require ladda/dist/ladda-themeless.min
+ *= require smalot-bootstrap-datetimepicker/css/bootstrap-datetimepicker
+ *= require add-to-homescreen/style/addtohomescreen.css
+ */
+
+body {
+	background-color: #ecf0f5 !important;
+}
+
+#filters {
+  position:fixed;
+  top:80px;
+  right:20px;
+  bottom: 20px;
+  width:230px;
+  background:#111111;
+  padding:20px;
+  color:#FFF;
+  font-size:0.9em;
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+}
+
+#filters .title {
+  position: relative;
+  height: 10%;
+  width: auto;
+}
+
+#filters .title span {
+  position: absolute;
+  bottom: 7px;
+}
+
+#filters #sites {
+  height: 45%;
+  width: auto;
+  overflow: auto;
+  padding: 4px 7px;
+}
+
+#filters #lines {
+  height: 19%;
+  width: auto;
+  overflow: auto;
+  padding: 4px 7px;
+}
+
+#filters #reports {
+  height: 8%;
+  width: auto;
+}
+
+#filters #refresh {
+  height: 10%;
+  width: auto;
+}
+
+#filters .checkbox_flt {
+  margin: 3px 0px;
+}
+
+#fitlers .checkbox_flt input[type="checkbox"] {
+  vertical-align: text-bottom;
+}
+
+#filters .checkbox_flt img {
+  max-height: 23px;
+}
+
+#filters_btn {
+  display: none;
+  position:fixed;
+  right:20px;
+  bottom: 20px;
+  width:80px;
+  background:#111111;
+  padding: 7px 4px;
+  color:#FFF;
+  font-size:0.9em;
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+#close_btn {
+  display: none;
+  position: relative;
+  top: -25px;
+  right: -195px;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+  #filters {
+    right:-250px;
+  }
+
+  #filters_btn {
+    display: block;
+  }
+
+  #close_btn {
+    display: block;
+  }
+
+}
+
+
+.fa-badge {
+  font-size: 10px !important;
+  position: relative;
+  top: 5px;
+  right: 11px;
+  background-color: #d9534f !important;
+}
+
+.transparent {
+  opacity: 0.5;
+}
+
+.fa-x {
+  font-size: 1.4em !important;
+}

@@ -1,0 +1,134 @@
+<div class="row">
+
+  <div class="col-md-4">
+    <div class="thumbnail" id="map-canvas" data-map-detail data-map-marker="<%= @report.to_json(methods: :icon_url) %>" style="width:100%; height: 350px;"></div>
+
+    <div class="box box-solid">
+      <div class="box-body">
+
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <% if @report.photo? %>
+              <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <% end %>
+          </ol>
+          <div class="carousel-inner">
+            <div class="item active">
+              <div id="streetview" style="height:225px;width:100%"></div>  
+            </div>
+            <% if @report.photo? %>
+              <div class="item">
+                <%= image_tag @report.photo.url, style: "margin: 0px auto" %>
+              </div>
+            <% end %>
+          </div>
+          <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+            <span class="fa fa-angle-left"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+            <span class="fa fa-angle-right"></span>
+          </a>
+        </div>
+
+        <script type="text/javascript">     
+
+          $(function() {
+
+            var site =new google.maps.LatLng(<%= @report.latitude %>, <%= @report.longitude %>); 
+
+            var panoramaOptions = {
+              position: site,
+              linksControl: false,
+              panControl: false,
+              zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL
+              }
+            };
+
+            var panorama = new  google.maps.StreetViewPanorama(document.getElementById("streetview"),panoramaOptions);
+          });
+
+        </script>
+
+      </div><!-- /.box-body -->
+    </div>
+  </div>
+  <div class="col-md-8">
+    <!-- Default box -->
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title"><%= t :details %></h3>
+      </div>
+      <div class="box-body">
+        <table class="table" style="table-layout:fixed">
+          <tbody>
+            <tr>
+              <th><%= t :description %></th>
+              <td><%= @report.description %></td>
+            </tr>
+            <tr>
+              <th><%= t :category %></th>
+              <td><%= @report.category.name %> 
+              <% if @report.sub_category %>
+                - <%= @report.sub_category.name %></td>
+              <% end %>
+
+            </tr>
+            <tr>
+              <th><%= t :added_by %></th>
+              <td><%= added_by(@report) %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <!-- timeline -->
+    <ul class="timeline" style="padding-bottom: 1px">
+
+      <% @report.states.each do |state| %>
+
+        <li>
+          <!-- timeline icon -->
+          <i class="fa <%= state.status.fa_icon %> bg-blue"></i>
+          <div class="timeline-item">
+            <span class="time"><i class="fa fa-clock-o"></i> <%= time_ago_in_words state.created_at %></span>
+
+            <h3 class="timeline-header"><a href="#"><%= state.status.label %></a></h3>
+
+
+            <% unless state.comment.empty? %>
+              <div class="timeline-body">
+                <%= state.comment %>
+              </div>
+            <% end %>
+
+          </div>
+        </li>
+
+      <% end %>
+
+      <li>
+        <i class="fa fa-clock-o bg-gray"></i>
+      </li>
+    </ul>
+
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-solid">
+      <div class="box-body">
+        <div class="pull-right">
+          <%= link_to t(:back), :back, class: "btn btn-danger" %>
+        </div>
+        <div class="clearfix">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

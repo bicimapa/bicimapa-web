@@ -1,0 +1,65 @@
+<div class="register-box">
+  <div class="register-logo">
+    <%= link_to t(:bicimapa), :root %>
+  </div>
+
+  <div class="register-box-body">
+    <p class="login-box-msg"><%= t(:register_a_new_account) %></p>
+	<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+    <div style="margin-bottom: 15px; color: #dd4b39"><%= flash[:alert] %></div>
+      <div class="form-group has-feedback <%= "has-error" if resource.errors[:email].any? %>">
+				<%= f.input_field :email, required: true, autofocus: true, placeholder: t(:email), class: "form-control" %>
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <% if resource.errors[:email].any? %>
+          <label class="control-label"><i class="fa fa-times-circle-o"></i> <%= f.error :email %></label>
+        <% end %>
+      </div>
+      <div class="form-group has-feedback <%= "has-error" if resource.errors[:last_name].any? %>">
+				<%= f.input_field :last_name, required: true, placeholder: t(:last_name), class: "form-control" %>
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        <% if resource.errors[:last_name].any? %>
+          <label class="control-label"><i class="fa fa-times-circle-o"></i> <%= f.error :last_name %></label>
+        <% end %>
+      </div>
+      <div class="form-group has-feedback <%= "has-error" if resource.errors[:first_name].any? %>">
+				<%= f.input_field :first_name, required: true, placeholder: t(:first_name), class: "form-control" %>
+        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        <% if resource.errors[:first_name].any? %>
+          <label class="control-label"><i class="fa fa-times-circle-o"></i> <%= f.error :first_name %></label>
+        <% end %>
+      </div>
+      <div class="form-group has-feedback <%= "has-error" if resource.errors[:password].any? %>">
+				<%= f.input_field :password, required: true, placeholder: t(:password), class: "form-control" %>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <% if resource.errors[:password].any? %>
+          <label class="control-label"><i class="fa fa-times-circle-o"></i> <%= f.error :password %></label>
+        <% end %>
+      </div>
+      <div class="form-group has-feedback <%= "has-error" if resource.errors[:password_confirmation].any? %>">
+				<%= f.input_field :password_confirmation, required: true, placeholder: t(:retype_password), class: "form-control" %>
+        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+        <% if resource.errors[:password_confirmation].any? %>
+          <label class="control-label"><i class="fa fa-times-circle-o"></i> <%= f.error :password_confirmation %></label>
+        <% end %>
+      </div>
+      <div class="row">
+      <div class="col-xs-offset-8 col-xs-4">
+          <%= f.button :submit, t(:register), class: "btn btn-success btn-block btn-flat" %>
+        </div><!-- /.col -->
+      </div>
+  <% end %>
+
+    <div class="social-auth-links text-center">
+      <p>- <%= t(:OR) %> -</p>
+      <%= link_to '/users/auth/facebook', class: "btn btn-block btn-social btn-facebook btn-flat" do %>
+        <i class="fa fa-facebook"></i> <%= t(:sign_up_using_facebook) %>
+      <% end %>
+    </div>
+
+    <%= link_to t(:i_forgot_my_password), new_user_password_path %> | 
+    <%= link_to t(:i_already_have_an_account),  new_user_session_path, class: "text-center" %>
+  </div><!-- /.form-box -->
+</div><!-- /.register-box -->
+
+

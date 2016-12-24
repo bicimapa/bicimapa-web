@@ -1,0 +1,154 @@
+<section class="content-header">
+<h1>
+  <%= t(:viewing_site) %>
+</h1>
+</section>
+
+<section class="content">
+  <%= display_notice notice %>
+  <div class="row">
+
+    <div class="col-md-6">
+      <!-- Default box -->
+      <div class="box box-solid">
+        <div class="box-header">
+          <h3 class="box-title"><%= t(:details) %></h3>
+        </div>
+        <div class="box-body">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th><%= t(:name) %></th>
+                <td><%= @site.name %></td>
+              </tr>
+              <tr>
+                <th><%= t(:description) %></th>
+                <td><%= @site.description %></td>
+              </tr>
+
+              <tr>
+                <th><%= t(:is_active) %></th>
+                <td><%= bool(@site.is_active) %></td>
+              </tr>
+
+              <tr>
+                <th><%= t(:has_been_reviewed) %>:</th>
+                <td><%= bool(@site.has_been_reviewed) %></td>
+              </tr>
+
+              <tr>
+                <th><%= t(:has_custom_icon) %></th>
+                <td><%= bool(@site.custom_icon.exists?) %></td>
+              </tr>
+
+                <tr>
+                  <th><%= t(:category) %></th>
+                  <td>
+                    <% if @site.category != nil then %>
+                      <%= @site.category_name %>
+                    <% else %>
+                      <%= t(:does_not_belong_to_a_category) %>
+                    <% end %>
+                  </td>
+                </tr>
+
+                <tr><th><%= t(:added_by) %></th> 
+                  <td><%= added_by(@site) %></td>
+                </tr>
+
+                <tr>
+                  <th><%= t(:rating) %></th>
+                  <td>
+                    <%= rating(@site.rating, @site.nb_rating) %>
+                  </td>
+                </tr>
+
+            </tbody>	
+          </table>
+        </div><!-- /.box-body -->
+      </div><!-- /.box -->
+
+    <div class="box box-solid">
+      <div class="box-body">
+
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <% if @site.picture_1? %>
+              <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <% end %>
+            <% if @site.picture_2? %>
+              <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            <% end %>
+            <% if @site.picture_3? %>
+              <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+            <% end %>
+          </ol>
+          <div class="carousel-inner">
+            <div class="item active">
+              <div id="streetview" style="height:225px;width:100%"></div>  
+            </div>
+            <% if @site.picture_1? %>
+              <div class="item">
+                <%= image_tag @site.picture_1.url, style: "margin: 0px auto" %>
+              </div>
+            <% end %>
+            <% if @site.picture_2? %>
+              <div class="item">
+                <%= image_tag @site.picture_2.url, style: "margin: 0px auto" %>
+              </div>
+            <% end %>
+            <% if @site.picture_3? %>
+              <div class="item">
+                <%= image_tag @site.picture_3.url, style: "margin: 0px auto" %>
+              </div>
+            <% end %>
+          </div>
+          <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+            <span class="fa fa-angle-left"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+            <span class="fa fa-angle-right"></span>
+          </a>
+        </div>
+
+        <script type="text/javascript">     
+
+            $(function() {
+
+              var site =new google.maps.LatLng(<%= @site.latitude %>, <%= @site.longitude %>); 
+
+              var panoramaOptions = {
+                position: site,
+                linksControl: false,
+                panControl: false,
+                zoomControlOptions: {
+                  style: google.maps.ZoomControlStyle.SMALL
+                }
+              };
+
+              var panorama = new  google.maps.StreetViewPanorama(document.getElementById("streetview"),panoramaOptions);
+            });
+          
+        </script>
+
+
+      </div><!-- /.box-body -->
+    </div>
+    </div>
+    <div class="col-md-6">
+      <!-- Default box -->
+      <div class="box box-solid">
+        <div class="box-body">
+          <div class="map-canvas" data-map-detail data-map-marker="<%= @site.to_json(methods: [:icon_url, :latitude, :longitude]) %>" style="height:480px; width:auto"></div>
+        </div><!-- /.box-body -->
+      </div><!-- /.box -->
+    </div>
+  </div>
+
+
+<%= display_button_bar(@site, [:moderator]) %>
+
+</section>
+
+

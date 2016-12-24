@@ -1,0 +1,206 @@
+<% 
+  og title: @site.name
+  og description: @site.description
+  if (has_picture(@site))
+    twitter card: "summary_large_image"
+    og image: "https://bicimapa.com" + get_first_picture(@site)
+  else
+    twitter card: "summary"
+    og image: "https://bicimapa.com" + @site.category.icon.url
+  end
+%>
+<div class="row">
+
+  <div class="col-md-4">
+    <div class="thumbnail" id="map-canvas" data-map-detail data-map-marker="<%= @site.to_json(methods: [:icon_url, :latitude, :longitude]) %>" style="width:100%; height: 350px;"></div>
+    <div class="box box-solid">
+      <div class="box-body">
+
+        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <% if @site.picture_1? %>
+              <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <% end %>
+            <% if @site.picture_2? %>
+              <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            <% end %>
+            <% if @site.picture_3? %>
+              <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+            <% end %>
+          </ol>
+          <div class="carousel-inner">
+            <div class="item active">
+              <div id="streetview" style="height:225px;width:100%"></div>  
+            </div>
+            <% if @site.picture_1? %>
+              <div class="item">
+                <%= image_tag @site.picture_1.url, style: "margin: 0px auto" %>
+              </div>
+            <% end %>
+            <% if @site.picture_2? %>
+              <div class="item">
+                <%= image_tag @site.picture_2.url, style: "margin: 0px auto" %>
+              </div>
+            <% end %>
+            <% if @site.picture_3? %>
+              <div class="item">
+                <%= image_tag @site.picture_3.url, style: "margin: 0px auto" %>
+              </div>
+            <% end %>
+          </div>
+          <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+            <span class="fa fa-angle-left"></span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+            <span class="fa fa-angle-right"></span>
+          </a>
+        </div>
+
+        <script type="text/javascript">     
+
+          $(function() {
+
+            var site =new google.maps.LatLng(<%= @site.latitude %>, <%= @site.longitude %>); 
+
+            var panoramaOptions = {
+              position: site,
+              linksControl: false,
+              panControl: false,
+              zoomControlOptions: {
+                style: google.maps.ZoomControlStyle.SMALL
+              }
+            };
+
+            var panorama = new  google.maps.StreetViewPanorama(document.getElementById("streetview"),panoramaOptions);
+          });
+
+        </script>
+
+      </div><!-- /.box-body -->
+    </div>
+  </div>
+  <div class="col-md-8">
+
+    <% unless @site.has_been_reviewed %>
+      <div class="callout callout-warning">
+        <p><%= t(:this_site_has_not_been_reviewed_yet) %></p>
+      </div>
+    <% end %>
+
+    <!-- Default box -->
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title"><%= t :details %></h3>
+      </div>
+      <div class="box-body">
+        <table class="table" style="table-layout:fixed">
+          <tbody>
+            <tr>
+              <th style="width: 25%"><%= t :name %></th>
+              <td style="width: 75%"><%= @site.name %></td>
+            </tr>
+            <tr>
+              <th><%= t :description %></th>
+              <td><%= @site.description %></td>
+            </tr>
+
+            <tr>
+              <th><%= t :category %></th>
+              <td><%= @site.category.name %></td>
+            </tr>
+            <tr>
+              <th><%= t :added_by %></th>
+              <td><%= added_by(@site) %></td>
+            </tr>
+            <tr>
+              <th><%= t :last_update %></th>
+              <td><%= time_ago_in_words(@site.updated_at) %></td>
+            </tr>
+            <tr>
+              <th><%= t :rating %></th>
+              <td>
+                <%= rating(@site.rating, @site.nb_rating) %>
+              </td>
+            </tr>
+            <% if user_signed_in? %>
+              <tr>
+                <th><%= t :your_rating %></th>
+                <td>
+                  <%# <%= rating(@site.user_rating(current_user)) %>
+                  <% if !user_signed_in? %>
+                    <i><%= t :you_must_be_logged_to_rate_this_site %></i> 
+                  <% end %>
+                  <%= form_tag("/sites/#{@site.id}/rate", :method => :patch, :style => "display:inline", class: "form-inline") do %>
+                    <%= number_field_tag :rate, @site.user_rating(current_user), :in => 0..5, :step => 0.5, class: "form-control" %>
+                    <%= submit_tag t(:"rate"), :disabled => !user_signed_in?, class: "btn btn-default" %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title"><%= @site.comments.count %> <%= t :comments %></h3>
+      </div>
+      <div class="box-body">
+
+        <% @site.comments.each do |comment| %>
+          <div class="media">
+            <a class="pull-left" href="#">
+              <%= image_tag avatar_url(comment.user), alt: t(:avatar), class: "media-object thumbnail" %>
+            </a>
+            <div class="media-body">
+              <h4 class="media-heading"><%= full_name(comment.user) %> <small><%= time_ago_in_words comment.created_at %> <%= t :ago %> <% if (comment.created_at < @site.updated_at) %> (<%= t :before_last_update %>) <% end %></small></h4>
+              <%= comment.comment %>
+            </div>
+          </div>
+
+        <% end %>
+
+        <hr/>
+
+        <% if user_signed_in? %>
+
+
+          <div class="media">
+            <a class="pull-left" href="#">
+              <%= image_tag avatar_url(current_user), alt: t(:avatar), class: "media-object thumbnail" %>
+            </a>
+            <div class="media-body">
+              <%= form_tag("/sites/#{@site.id}/comment", :method => :patch) do %>
+                <h4 class="media-heading" style="margin-bottom: 7px"><%= full_name(current_user) %></h4>
+                <%= text_area_tag :comment, nil, placeholder:t(:this_is_a_great_place), class: "form-control", style:"width: 100%;height: 85px" %>
+                <%= submit_tag t(:post), :class => 'btn btn-default pull-right', style: "margin-top: 7px" %>
+              <% end %>
+            </div>
+          </div>
+        <% else %>
+          <div class="callout callout-info">
+            <p><%= t(:you_must_be_logged_in_to_comment) %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-solid">
+      <div class="box-body">
+        <div class="pull-right">
+          <%= link_to t(:back), :back, class: "btn btn-danger" %>
+        </div>
+        <div class="clearfix">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

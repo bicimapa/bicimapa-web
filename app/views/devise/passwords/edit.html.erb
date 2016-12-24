@@ -1,0 +1,37 @@
+<div class="login-box">
+  <div class="login-logo">
+    <%= link_to t(:bicimapa), :root %>
+  </div><!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg"><%= t(:change_your_password) %></p>
+<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+
+    <div style="margin-bottom: 15px; color: #dd4b39"><%= flash[:alert] %></div>
+
+  <%= f.input :reset_password_token, as: :hidden %>
+  <%= f.full_error :reset_password_token %>
+  
+
+      <div class="form-group has-feedback <%= "has-error" if resource.errors[:password].any? %>">
+				<%= f.input_field :password, required: true, placeholder: t(:new_password), class: "form-control" %>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <% if resource.errors[:password].any? %>
+          <label class="control-label"><i class="fa fa-times-circle-o"></i> <%= f.error :password %></label>
+        <% end %>
+      </div>
+      <div class="form-group has-feedback <%= "has-error" if resource.errors[:password_confirmation].any? %>">
+				<%= f.input_field :password_confirmation, required: true, placeholder: t(:retype_new_password), class: "form-control" %>
+        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+        <% if resource.errors[:password_confirmation].any? %>
+          <label class="control-label"><i class="fa fa-times-circle-o"></i> <%= f.error :password_confirmation %></label>
+        <% end %>
+      </div>
+
+    <%= f.button :submit, t(:change_my_password), class: "btn btn-block btn-primary btn-flat" %>
+  <% end %>
+
+    <br/>
+    <%= link_to t(:register_an_account), new_user_registration_path, class:'text-center' %>
+
+  </div><!-- /.login-box-body -->
+</div><!-- /.login-box -->

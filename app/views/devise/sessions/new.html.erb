@@ -1,0 +1,45 @@
+<div class="login-box">
+  <div class="login-logo">
+    <%= link_to t(:bicimapa), :root %>
+  </div><!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg"><%= t(:sign_in_to_start_your_session) %></p>
+	<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+    <div style="margin-bottom: 15px; color: #dd4b39"><%= flash[:alert] %></div>
+  
+      <div class="form-group has-feedback <%= "has-error" if resource.errors[:email].any? %>">
+				<%= f.input_field :email, required: false, placeholder: t(:email), class: "form-control", autofocus: true %>
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <% if resource.errors[:email].any? %>
+          <label class="control-label"><i class="fa fa-times-circle-o"></i> <%= f.error :email %></label>
+        <% end %>
+      </div>
+      <div class="form-group has-feedback">
+				<%= f.input_field :password, required: true, placeholder: t(:password), class: "form-control" %>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="row">
+        <div class="col-xs-8" style="padding-left: 35px">    
+          <%= f.input :remember_me, as: :boolean, label: t(:remember_me), input_html: {checked: true} if devise_mapping.rememberable? %>
+        </div>
+        <div class="col-xs-4">
+          <%= f.button :submit, t(:login), class: "btn btn-primary btn-block btn-flat" %>
+        </div><!-- /.col -->
+      </div>
+    <% end %>
+
+    <div class="social-auth-links text-center">
+      <p>- <%= t(:OR) %> -</p>
+      <%= link_to '/users/auth/facebook', class: "btn btn-block btn-social btn-facebook btn-flat" do %>
+        <i class="fa fa-facebook"></i> <%= t(:sign_in_using_facebook) %>
+      <% end %>
+    </div><!-- /.social-auth-links -->
+
+    <%= link_to t(:i_forgot_my_password), new_user_password_path %> | 
+    <%= link_to t(:register_an_account), new_user_registration_path, class:'text-center' %>
+
+  </div><!-- /.login-box-body -->
+</div><!-- /.login-box -->
+
+

@@ -1,0 +1,328 @@
+---
+es:
+  OR: O
+  a_site_you_added_has_a_new_comment: Una persona comentó este sitio.
+  a_site_you_added_has_been_modified: Alguien modificó un sitio que agregó.
+  a_site_you_commented_has_a_new_comment: Otra persona comentó este sitio.
+  a_site_you_commented_has_been_updated: Alguien comentó un sitio que agregó.
+<<<<<<< HEAD
+  access_token: Access token
+  access_token_secret: Access token secret
+=======
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  activated: Activado
+  active_users: Usuarios activos
+  add_new_report: Hacer un reporte
+  add_new_site: Agregar un sitio
+  added_by: Agregado por
+  added_on: Agregado el
+  administration: administración
+  administrator: Administrator
+  ago: antes
+  alberto_role: Rol de Alberto
+  all: Todos
+  all_sites: Todos los sitios
+  all_sites_in_your_zone: Todos los sitios de sus zonas
+  all_time_ranking: Clasificación desde el inicio
+  amazon_s3: Amazon s3
+  android_app: Android App
+  annoucement: Anuncio
+  anonymous: Anonimo
+  api_keys: Api keys
+  app_id: App
+  are_you_sure?: Estas seguro?
+  are_you_sure_you_want_to_unsubscribe_from_the_newsletter: Esta seguro que se quiere retirar del boletin informativo?
+  avatar: Foto
+  aws_access_key_id: Aws access key
+  aws_secret_access_key: Aws secret access key
+  back: Atrás
+  before_last_update: Antes de la ultima actualizacion
+  bicimapa: Bicimapa
+  bicimapa_founder: Fundador de Bicimapa
+  bicimapa_team: Equipo Bicimapa
+  bicimappea: Bicimappea
+  blog: Blog
+  browser_api_key: Browser api key
+  bucket: Bucket
+  cancel: Cancelar
+  categories: Categorias
+  category: Categoria
+  change_my_password: Cambiar mi contraseña
+  change_your_password: Cambiar su contraseña
+  code: Codigo
+  color: Color
+  comment: Comentario
+  comment_cant_be_empty: El commentario no puede ser vacio
+  comments: Comentarios
+  configuration: Configuracion
+  configure_notifications: configurar las notificaciones
+  consumer_key: Consumer key
+  consumer_secret: Consumer secret
+  contact_us: Contáctanos
+  control_panel: Control panel
+  create: Crear
+  create_new_ride: Agregar tu rodada
+  created_at: Creado el
+  dashboard: Escritorio
+  deactivated: Desactivado
+  delete: Borrar
+  description: Descripción
+  destroy: Suprimir
+  details: Detalles
+  developper: Desarrollador
+  does_not_belong_to_a_category: No pertenece a una categoria
+  edit: Modificar
+  edit_site_with_id: Editar sitio con id
+  editing_category: Modificando una categoria
+  editing_comment: Editing comment
+  editing_line: Modificando una linea
+  editing_report: Modificando un reporte
+  editing_site: Modificando un sitio
+  editing_status: Modificando un status
+  editing_sub_category: Modificando un sub status
+  editing_zone: Modificando una zona
+  email: Correo electronico
+  email_check: Revisar
+  email_contactinfo: 'Info de contacto:'
+  email_email: Email email
+  email_hello: Hola
+  email_last_session: Tu ultima sesion fue hace %{timeago}
+  email_lead: Hay %{site_count} sitios pendientes de revision en %{zone_name}
+  email_notifications: Notificaciones por correo
+  email_reason: Recibes este correo porque eres moderador de %{zone_name}
+  email_updates: 'Actualizaciones en:'
+  end: End
+  english: Inglés
+<<<<<<< HEAD
+  extract_all_newsletters_emails: Archivo con todos los correos del boletin informativo
+  extract_all_users_and_newsletters_email: Archivo con todos los correos del boletin informativo y de los usuarios
+  extract_all_users_emails: Archivo con todos los correos de los usuarios
+=======
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  fa_icon: icono FA
+  facebook: Facebook
+  facebook_UID: Facebook uid
+  facebook_email_alert: Se requiere su correo electronico para poder crear una cuenta. No usaremos este correo para espamear y lo podra cambiar mas tarde. Por favor, intente nuevamente otrogandonos el acceso a su correo electronico.
+  'false': 'No'
+  file: Archivo
+  first: 1<sup>o</sup>
+  first_name: Nombres
+  followers: Seguidores
+  forgot_your_password: Contraseña olvidada?
+  french: Francés
+  full_name: Appellidos
+  go: Ir
+  google_analytics: Google analytics
+  google_maps: Google maps
+  guessed_first_name: Nombre (adivinado)
+  guessed_last_name: Apellido (adivinado)
+  has_been_reviewed: Ha sido verificado
+  help: Ayuda
+  here: Aqui
+  honest_testimonials: Testimonios honestos
+  i_already_have_an_account: Ya tengo una cuenta
+  i_forgot_my_password: Contraseña olvidada
+  icon: Icono
+  import: Importar
+  import_kml: Importar un KML
+  integration_with_facebook: Conectar con Facebook
+  ios_app: iOS App
+  is_active: Activo?
+  is_final_state: Es un estado final?
+  is_initial: Se muestra al inicio?
+  is_public: Publico?
+  join_the_bicimappers_familly: Unate a la famillia de los %{count} bicimappers
+  joined_on: Cuenta creada en
+  juan_david_role: Rol de Juan David
+  km: Km
+  label: Label
+  last_name: Apellidos
+  last_online_on: Ultima conexion el
+  last_update: Ultima actualizacion
+  latitude: Latitud
+  lines: Lineas
+  link_to_facebook_profile: Conectar con Facebook
+  list_of_icons_available: Listado de iconos disponibles
+  listing_rides_near: Ciclopaseos cerca
+  load: Cargar
+  locale: Locale
+  login: Iniciar sesión
+  logout: Cerrar sesión
+  longitude: Longitud
+  mail_subject: "[Bicimapa] %{zone_name} - %{sites_count} nuevos sitios hoy!"
+<<<<<<< HEAD
+  mailer_new_site_content: "%{sites_count} nuevos sitios fueron agregados en la zona %{zone_name}. Usted recibe este correo porque es moderador de esta zona."
+=======
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  moderation: Moderación
+  moderator: Moderator
+  moderators: Moderators
+  more: Mas
+  more_info: Mas informaciones
+  multiple_results: Múltiples resultados
+  must_be_a_valid_fontawesome_identifier: Tienes que ser un icono fontawesome valido
+  my_profile: Mi perfil
+  my_zones: Mis zonas
+  name: Nombre
+  navigation: Navigacion
+  new: Nuevo
+  new_category: Nueva categoria
+  new_comment: Nuevo comentario
+  new_comment_added: Se agrego un nuevo commentario
+  new_line: Nueva linea
+  new_password: New password
+  new_report: Nuevo reporte
+  new_ride_added: Se ha agregado una nueva rodada
+  new_ride_help_message_html: 'Píllate este video antes de crear tu rodada: %{video_url}'
+  new_site: Nuevo sitio
+<<<<<<< HEAD
+  new_site_to_review: Se ha agregado nuevos sitios
+  new_status: Nuevo status
+  new_sub_category: Nueva sub categoria
+  new_zone: Nueva zona
+  newsletter: Boletin informativo
+  no_thanks: No, gracias
+  none: Ninguno
+  nothing_found: No se ha encontrado nada
+  notify_new_comment_subject: "[Bicimapa] Nuevo commentario"
+  notify_new_ride_subject: "[Bicimapa] Nueva rodada"
+=======
+  new_status: Nuevo status
+  new_sub_category: Nueva sub categoria
+  new_zone: Nueva zona
+  none: Ninguno
+  nothing_found: No se ha encontrado nada
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  notify_site_new_comment_mail_subject: "[Bicimapa] Nuevo comentario"
+  notify_site_owner_new_comment_mail_subject: "[Bicimapa] Nuevo comentario"
+  notify_site_update_commenter_mail_subject: "[Bicimapa] Sitio actualizado"
+  notify_site_update_creator_mail_subject: "[Bicimapa] Sitio actualizado"
+  number_of_users_who_rated_this_site: Total de usuario quienes calificaron este sitio
+  'on': el
+  only_uppercase_letters: Solo se puede usar letras mayusculas
+  origin: Desde
+  other_rides_in_the_world: Otros ciclopaseos
+  our_team: Nuestro equipo
+  password: Contrasena
+  path_must_be_defined: Se requiere el trayecto de la rodada
+  photo: foto
+  picture: Imagen
+  picture_1: Imagen 1
+  picture_2: Imagen 2
+  picture_3: Imagen 3
+  please_come_again_later: Por favor ingrese mas tarde
+  please_enter_your_email_to_subscribre_to_the_newsletter: Por favor ingrese tu correo electronico para recebir el boletin informativo
+  points: Puntos
+  post: Publicación
+  press: Prensa
+  privacy: Privacy
+  profile: Perfil
+  rate: Calificacion
+  rate_cant_be_empty: La calificacion no puede ser vacia
+  rates: Calificaciones
+  rating: Puesto
+  receive_notifications: Notificationes por correo
+<<<<<<< HEAD
+  receive_the_newsletter: Sea parte de la familia
+=======
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  refresh: Actualizar
+  register: Registrarse
+  register_a_new_account: Crear una nueva cuenta
+  register_an_account: Crear una cuenta
+  remember_me: Acordarse de mi
+  report_created: Reporte creado
+  reports: Reportes
+  retype_new_password: Confirmar nueva contraseña
+  retype_password: Contrasena (nuevamente)
+  review_changes: Revisar los cambios
+  review_new_comment: Revisar el comentario
+  review_them: Revisar los ahora
+  ride_will_be_rewarded_to_anonymous: Ride will be rewarded to anonymous
+  rides: Rodadas
+  roland_role: Rol de Roland
+  save: Guardar
+  score: Score
+  search_an_address: Buscar una dirección
+  second: 2<sup>o</sup>
+  secret_id: Secret
+  send_me_reset_password_instructions: Enviar las instrucciones
+  show: Mostrar
+  show_report_label: Detalles del reporte
+  show_reports: Mostrar reportes
+  show_site_label: Más detalles
+  sign_in_to_start_your_session: Conectacte para iniciar su session
+  sign_in_using_facebook: Conectarse a traves de Facebook
+  sign_up_using_facebook: Registrarse con su cuenta Facebook
+  site_id: Id del sitio
+  site_will_be_rewarded_to_anonymous: El sitio se va a agregar como anónimo. conectate para que esté vinculado a tu perfil.
+  sites: Sitios
+  sites_to_review: Sitios por revisar
+  spanish: Español
+  sponsors: Patrocinadores
+  start: Start
+  status: Status
+  statuses: Status
+  sub_categories: Sub categorias
+  sub_category: Sub categoria
+  subscribe: Unirse
+  team: Equipo
+  term_of_use: Términos de uso
+  term_of_use_contents: |-
+    Bicimapa es una página web y aplicación que busca ofrecer ayuda al ciclista mediante más y mejor información. Así pues, la información registrada, la cual ha sido recolectada a través de la colaboración de los usuarios de manera voluntaria, está bajo el tratamiento y administración del bicimapa. Teniendo en cuenta la forma en que centralizamos la información y a pesar de pasar por un filtro de aprobación, cualquier imprecisión o error en la información provista no será nuestra responsabilidad.
+    Cualquier uso, copia, modificación o cualquier acción que implique la manipulación de la base de datos deberá contar con autorización expresa por parte de todo el equipo del bicimapa.
+    Bicimapa no garantizará en ningún caso por las experiencias que los usuarios puedan llegar a tener en los sitios presentados en el mapa.Términos y condiciones Bicimapa es una página web y aplicación que busca ofrecer ayuda al ciclista mediante más y mejor información. Así pues, la información registrada, la cual ha sido recolectada a través de la colaboración de los usuarios de manera voluntaria, está bajo el tratamiento y administración del bicimapa. Teniendo en cuenta la forma en que centralizamos la información y a pesar de pasar por un filtro de aprobación, cualquier imprecisión o error en la información provista no será nuestra responsabilidad.
+    Cualquier uso, copia, modificación o cualquier acción que implique la manipulación de la base de datos deberá contar con autorización expresa por parte de todo el equipo del bicimapa.
+    Bicimapa no garantizará en ningún caso por las experiencias que los usuarios puedan llegar a tener en los sitios presentados en el mapa
+<<<<<<< HEAD
+=======
+  terms: Terms
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  the_moderators: Los moderadores
+  there_are_no_new_sites_to_review: No hay nuevos sitios por revisar
+  third: 3<sup>o</sup>
+  this_is_a_great_place: Este es un lugar genial
+  this_site_has_not_been_reviewed_yet: Este sitio no ha sido aprobado todavía.
+  this_week_ranking: Ranking de esta semana
+  to_review: Para revisar
+  tos: Términos y condiciones
+  tracker: Tracker
+  'true': Si
+  twitter: Twitter
+  unlink_facebook_profile: Desconectar de su cuenta Facebook
+  update: Guardar
+  update_status: Guardar
+  users: Usuarios
+  ux_designer: User Hero
+  variety: Variedad
+  view_rides: Ver todas la rodadas
+  viewing_category: Detalle de una categoria
+  viewing_comment: Detalle del comentario
+  viewing_line: Detalle de una linea
+  viewing_newsletter_email: Detalle de los correos electronicos del boletin informativo
+  viewing_report: Detalle de un reporte
+  viewing_site: Detalle de un sitio
+  viewing_status: Detalle de un status
+  viewing_sub_category: Detalle de una sub categoria
+  viewing_zone: Detalle de una zona
+  views:
+    pagination:
+      first: Primero
+      last: "último"
+      next: Siguiente
+      previous: Previo
+      truncate: "..."
+  warning: Atencion
+<<<<<<< HEAD
+  'yes': Si
+  yoann_role: Rol de Yoann
+  you_are_not_logged_in: No estas conectado
+  you_have_been_successfully_added_to_the_newsletter: Te unaste al boletin informativo
+=======
+  yoann_role: Rol de Yoann
+  you_are_not_logged_in: No estas conectado
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  you_must_be_logged_in_to_comment: Debes iniciar sesión para commentar este sitio
+  you_must_be_logged_to_rate_this_site: Debes iniciar sesión para calificar este sitio
+  your_rating: Tu calificación
+  zones: Zonas

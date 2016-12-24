@@ -1,0 +1,322 @@
+---
+fr:
+  OR: OU
+  a_site_you_added_has_a_new_comment: Un nouveau commentaire a été ajouté.
+  a_site_you_added_has_been_modified: Un site que vous avez ajouté a été modifié.
+  a_site_you_commented_has_a_new_comment: Un nouveau commentaire a été ajouté.
+  a_site_you_commented_has_been_updated: Un site que vous avez commenté a été mis à jour.
+<<<<<<< HEAD
+  access_token: Access token
+  access_token_secret: Access token secret
+=======
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  activated: Activé
+  active_users: Utilisateurs actifs
+  add_new_report: Ajouter un signalement
+  add_new_site: Ajouter un point
+  added_by: Ajouté par
+  added_on: Ajouté le
+  administration: Administrer
+  administrator: Administrateur
+  ago: il y a
+  alberto_role: Alberto role
+  all: Tous
+  all_sites: Tous les sites
+  all_sites_in_your_zone: Tous les sites dans vos zones
+  all_time_ranking: Classement depuis le début
+  amazon_s3: Amazon s3
+  android_app: Appli Android
+  annoucement: Annonces
+  anonymous: Anonyme
+  api_keys: Api keys
+  app_id: App
+  are_you_sure?: "Êtes vous sûr?"
+<<<<<<< HEAD
+  are_you_sure_you_want_to_unsubscribe_from_the_newsletter: Etes vous sûr de vouloir vous désabonner de la newsletter ?
+  avatar: Photo
+=======
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  aws_access_key_id: Aws access key
+  aws_secret_access_key: Aws secret access key
+  back: Précédent
+  before_last_update: Avant la dernière mise à jour
+  bicimapa: Bicimapa
+  bicimapa_founder: Fondateurs de Bicimapa
+  bicimapa_team: L'équipe Bicimapa
+  bicimappea: Bicimappea
+  blog: Blog
+  browser_api_key: Browser api key
+  bucket: Bucket
+  cancel: Annuler
+  categories: Categories
+  category: Categorie
+  change_my_password: Changer mon mot de passe
+  change_your_password: Changer votre mot de passe
+  code: Code
+  color: Couleur
+  comment: Commentaires
+  comment_cant_be_empty: Le commentaire ne peut pas être vide
+  comments: Commentaires
+  configuration: Configuration
+  configure_notifications: Configure notifications
+  consumer_key: Consumer key
+  consumer_secret: Consumer secret
+  contact_us: Contacts
+  control_panel: Control panel
+  create: Créer
+  create_new_ride: Ajouter une sortie
+  created_at: Créé le
+  dashboard: Dashboard
+  deactivated: Désactivé
+  delete: Supprimer
+  description: Description
+  destroy: Supprimer
+  details: Details
+  developper: Développeur
+  does_not_belong_to_a_category: N'appartient à aucune catégorie
+  edit: Editer
+  edit_site_with_id: Editer le site d'id
+  editing_category: Edition d'une categorie
+  editing_comment: Edition d'un commentaire
+  editing_line: Edition d'une ligne
+  editing_report: Edition d'un signalement
+  editing_site: Edition d'un point
+  editing_status: Edition d'un statut
+  editing_sub_category: Edition d'une sous catégorie
+  editing_zone: Edition d'une zone
+  email: Email
+  email_check: Email check
+  email_contactinfo: Email contactinfo
+  email_email: Email email
+  email_hello: Email hello
+  email_last_session: Email last session
+  email_lead: Email lead
+  email_notifications: Email notifications
+  email_reason: Email reason
+  email_updates: Email updates
+  end: End
+  english: English
+<<<<<<< HEAD
+  extract_all_newsletters_emails: Extraire tous les emails de la newsletter
+  extract_all_users_and_newsletters_email: Extraire tous les emails des utilisateurs et de la newsletter
+  extract_all_users_emails: Extraire tous les emails des utilisateurs
+=======
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  fa_icon: Fa icon
+  facebook: Facebook
+  facebook_UID: Facebook uid
+  facebook_email_alert: L'adresse email est obligatoire pour la création d'un compte. Nous n'utiliserons pas cette adresse pour vous spammer et vous pourrez la modifier plus tard. Merci de recommencer en autorisant l'accès à votre adresse email.
+  'false': Non
+  file: File
+  first: 1<sup>er</sup>
+  first_name: Prénom
+  followers: Followers
+  forgot_your_password: Mot de passe oublié ?
+  french: Français
+  full_name: Nom complet
+  go: Aller
+  google_analytics: Google analytics
+  google_maps: Google maps
+  guessed_first_name: Prénom (deviné)
+  guessed_last_name: Nom (deviné)
+  has_been_reviewed: A été approuvé
+  help: Aide
+  here: Ici
+  honest_testimonials: Retour des utilisateurs
+  i_already_have_an_account: Vous avez déjà un compte?
+  i_forgot_my_password: Mot de passe oublié
+  icon: Icône
+  import: Importer
+  import_kml: Importer un kml
+  integration_with_facebook: Lier son compte à Facebook
+  ios_app: Appli iOS
+  is_active: Est actif
+  is_final_state: Etat final ?
+  is_initial: Est initial ?
+  is_public: Est public
+  join_the_bicimappers_familly: Rejoins la famille des %{count} bicimappers
+  joined_on: Compte créé le
+  juan_david_role: Juan david role
+  km: Km
+  label: Libelle
+  last_name: Nom de famille
+  last_online_on: Dernière connexion le
+  last_update: Dernière mise à jour
+  latitude: Latitude
+  lines: Lignes
+  link_to_facebook_profile: Lier son compte à Facebook
+  list_of_icons_available: Liste des icônes disponibles
+  listing_rides_near: Sorties proches de
+  load: Charger
+  locale: Locale
+  login: Connexion
+  logout: Deconnexion
+  longitude: Longitude
+  mail_subject: "[Bicimapa] %{zone_name} - %{sites_count} nouveaux sites aujourd'hui!"
+<<<<<<< HEAD
+  mailer_new_site_content: "%{sites_count} nouveaux sites ont été ajouté dans la zone %{zone_name}. Vous recevez ce mail car vous êtes modérateur de cette zone."
+=======
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  moderation: Modérer
+  moderator: Moderateur
+  moderators: Moderateurs
+  more: Autres
+  more_info: Plus d'infos
+  multiple_results: Plusieurs résultats
+  must_be_a_valid_fontawesome_identifier: L'identifiant n'est pas un identifiant FontAwesome valide
+  my_profile: Mon profile
+  my_zones: Mes zones
+  name: Nom
+  navigation: Navigation
+  new: Nouveau
+  new_category: Nouvelle catégories
+  new_comment: Nouveau commentaire
+  new_comment_added: Un nouveau commentaire a été posté
+  new_line: Nouvelle ligne
+  new_password: Nouveau mot de passe
+  new_report: Nouveau signalement
+  new_ride_added: Une nouvelle sortie a été créée
+  new_ride_help_message_html: 'Apprend à créer ta sortie grâce au tutoriel video : %{video_url}'
+  new_site: Nouveau point
+  new_status: Nouveau statut
+  new_sub_category: Nouvelle sous catégorie
+  new_zone: Nouvelle zone
+<<<<<<< HEAD
+  newsletter: Newsletter
+  no_thanks: Non, merci
+  none: Aucune
+  nothing_found: Aucun résultat
+  notify_new_comment_subject: "[Bicimapa] Un nouveau commentaire a été posté"
+  notify_new_ride_subject: "[Bicimapa] Nouvelle sortie créée"
+=======
+  none: Aucune
+  nothing_found: Aucun résultat
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  notify_site_new_comment_mail_subject: "[Bicimapa] Nouveau commentaire"
+  notify_site_owner_new_comment_mail_subject: "[Bicimapa] Nouveau commentaire"
+  notify_site_update_commenter_mail_subject: "[Bicimapa] Site mis à jour"
+  notify_site_update_creator_mail_subject: "[Bicimapa] Site mis à jour"
+  number_of_users_who_rated_this_site: Nombre de personne ayant voté pour ce point
+  'on': le
+  only_uppercase_letters: Seules les lettres majuscules sont acceptées
+  origin: Origin
+  other_rides_in_the_world: Autres sorties
+  our_team: Notre équipe
+  password: Mot de passe
+  path_must_be_defined: Le trajet de la sortie est obligatoire
+  photo: Photo
+  picture: Photo
+  picture_1: Photo 1
+  picture_2: Photo 2
+  picture_3: Photo 3
+  please_come_again_later: Veuillez reessayer plus tard
+  please_enter_your_email_to_subscribre_to_the_newsletter: Entrez votre email pour recevoir la newsletter
+  points: Points
+  post: Publier
+  press: Presse
+  privacy: Privacy
+  profile: Profile
+  rate: Voter
+  rate_cant_be_empty: La note ne peut pas être vide
+  rates: Votes
+  rating: Vote
+  receive_notifications: Notifications par mail
+<<<<<<< HEAD
+  receive_the_newsletter: Faire parti de la famille bicimapa
+=======
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  refresh: Actualiser
+  register: S'inscrire
+  register_a_new_account: Créer un nouveau compte
+  register_an_account: Créer un compte
+  remember_me: Se souvenir de moi
+  report_created: Signalement créé
+  reports: Signalements
+  retype_new_password: Confirmer le nouveau mot de pase
+  retype_password: Confirmation du mot de passe
+  review_changes: Vérifier les changements
+  review_new_comment: Voir les nouveaux commentaires
+  review_them: Les vérifier maintenant
+  ride_will_be_rewarded_to_anonymous: Ride will be rewarded to anonymous
+  rides: Sorties
+  roland_role: Roland role
+  save: Sauvegarder
+  score: Score
+  search_an_address: Entrez une adresse
+  second: 2<sup>ième</sup>
+  secret_id: Secret
+  send_me_reset_password_instructions: Envoyer les instructions
+  show: Détail
+  show_report_label: Détail du signalement
+  show_reports: Détail des signalements
+  show_site_label: Plus de détails
+  sign_in_to_start_your_session: Connectez vous pour démarrer votre session
+  sign_in_using_facebook: Se connecter avec Facebook
+  sign_up_using_facebook: Se connecter avec Facebook
+  site_id: Id du site
+  site_will_be_rewarded_to_anonymous: Le site sera ajouté en tant qu'anonyme. Connectez-vous pour qu'il vous soit attribué.
+  sites: Sites
+  sites_to_review: Sites à approuver
+  spanish: Espagnol
+  sponsors: Sponsors
+  start: Start
+  status: Staturts
+  statuses: Statuts
+  sub_categories: Sous categories
+  sub_category: Sous categorie
+  subscribe: S'abonner
+  team: Equipe
+  term_of_use: Conditions d'utilisation
+  term_of_use_contents: Term of use contents
+<<<<<<< HEAD
+=======
+  terms: Terms
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  the_moderators: Les modérateurs
+  there_are_no_new_sites_to_review: Aucun nouveau site à approuver
+  third: 3<sup>ième</sup>
+  this_is_a_great_place: C'est un endroit génial!
+  this_site_has_not_been_reviewed_yet: Cet endroit n'a pas encore été approuvé.
+  this_week_ranking: Classement de la semaine
+  to_review: A approuver
+  tos: Conditions d'utilisation
+  tracker: Tracker
+  'true': Oui
+  twitter: Twitter
+  unlink_facebook_profile: Retirer le lien avec Facebook
+  update: Mettre à jour
+  update_status: Changer le statut
+  users: Utilisateurs
+  ux_designer: Ux designer
+  variety: Variety
+  view_rides: Voir toutes les sorties
+  viewing_category: Détail d'une categorie
+  viewing_comment: Détail du commentaire
+  viewing_line: Détail d'une ligne
+  viewing_newsletter_email: Détail des emails de la newsletter
+  viewing_report: Détail d'un signalement
+  viewing_site: Détail d'un point
+  viewing_status: Détail d'un statut
+  viewing_sub_category: Détail d'une sous catégorie
+  viewing_zone: Détail d'une zone
+  views:
+    pagination:
+      first: Première
+      last: Dernière
+      next: Suivant
+      previous: Précédente
+      truncate: "..."
+  warning: Atention
+<<<<<<< HEAD
+  'yes': Oui
+  yoann_role: Yoann role
+  you_are_not_logged_in: Vous n'êtes pas connecté.
+  you_have_been_successfully_added_to_the_newsletter: Vous êtes maintenant abonné à la newsletter
+=======
+  yoann_role: Yoann role
+  you_are_not_logged_in: Vous n'êtes pas connecté.
+>>>>>>> remotes/aalonso_g/bicimapa/alberto
+  you_must_be_logged_in_to_comment: Vous devez être connecté pour pouvoir commenter
+  you_must_be_logged_to_rate_this_site: Vous devez être connecté pour pouvoir voter pour ce point
+  your_rating: Votre vote
+  zones: Zones

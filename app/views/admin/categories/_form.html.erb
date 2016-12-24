@@ -1,0 +1,129 @@
+<div class="row">
+<%= form_for([:admin, category], :html => { :multipart => true}) do |f| %>
+  <% if category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(category.errors.count, "error") %> prohibited this category from being saved:</h2>
+
+      <ul>
+        <% category.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="col-md-6">
+    <!-- Custom Tabs -->
+    <div class="nav-tabs-custom">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab_1" data-toggle="tab"><%= image_tag "flags/gb.png" %> <%= t(:english) %></a></li>
+        <li><a href="#tab_2" data-toggle="tab"><%= image_tag "flags/fr.png" %> <%= t(:french) %></a></li>
+        <li><a href="#tab_3" data-toggle="tab"><%= image_tag "flags/es.png" %> <%= t(:spanish) %></a></li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab_1">
+          <div class="form-group">
+            <%= f.label :name, t(:name) %><br>
+            <%= f.text_field :name_en, class:"form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :description, t(:description) %><br>
+            <%= f.text_area :description_en, class: "form-control" %>
+          </div>
+        </div><!-- /.tab-pane -->
+        <div class="tab-pane" id="tab_2">
+          <div class="form-group">
+            <%= f.label :name, t(:name) %><br>
+            <%= f.text_field :name_fr, class:"form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :description, t(:description) %><br>
+            <%= f.text_area :description_fr, class: "form-control" %>
+          </div>
+        </div><!-- /.tab-pane -->
+        <div class="tab-pane" id="tab_3">
+          <div class="form-group">
+            <%= f.label :name, t(:name) %><br>
+            <%= f.text_field :name_es, class:"form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :description, t(:description) %><br>
+            <%= f.text_area :description_es, class: "form-control" %>
+          </div>
+        </div><!-- /.tab-pane -->
+      </div><!-- /.tab-content -->
+    </div><!-- nav-tabs-custom -->
+  </div>
+
+  <div class="col-md-6">
+    <!-- Default box -->
+    <div class="box">
+      <div class="box-body">
+        <div class="form-group">
+          <%= f.label :variety, t(:variety) %>
+          <%= f.select(:variety, [['Line', 'LIN'], ['Site', 'SIT']], {},  class:"form-control") %>
+        </div>
+        <div class="checkbox">
+          <%= f.label :is_public do %>
+            <%= f.check_box :is_public %>
+            <%= t(:is_public) %>
+          <% end %>
+        </div>
+        <div class="checkbox">
+          <%= f.label :is_active do %>
+            <%= f.check_box :is_active %>
+            <%= t(:is_active) %>
+          <% end %>
+        </div>
+        <div class="checkbox">
+          <%= f.label :is_initial do %>
+            <%= f.check_box :is_initial %>
+            <%= t(:is_initial) %>
+          <% end %>
+        </div>
+        <div id="zone-line-group" <% if category.variety != 'LIN' && category.persisted? %> style="display: none" <% end %>>
+          <div class="form-group">
+            <%= f.label :color, t(:color) %>
+            <%= f.color_field :color, class:"form-control" %>
+          </div>
+        </div>
+        <div id="site-group" <% if category.variety != 'SIT' %> style="display: none" <% end %>>
+          <% if category.icon? %>
+            <p> Previous icon:
+            <%= image_tag category.icon.url %>
+            </p>
+          <% end %>
+          <div class="form-group">
+            <%= f.label :icon, t(:icon) %>
+            <%= f.file_field :icon, class:"form-control" %>
+          </div>
+        </div>
+      </div><!-- /.box-body -->
+    </div><!-- /.box -->
+  </div>
+</div>
+
+<%= display_button_bar(category, [:admin]) %>
+<% end %>
+
+
+<script type="text/javascript">
+
+$(function() {
+
+  $("#category_variety").change(function() {
+    switch($(this).val()) {
+      case 'LIN':
+        $("#site-group").hide();
+        $("#zone-line-group").show();
+        break;
+      case 'SIT':
+        $("#site-group").show();
+        $("#zone-line-group").hide();
+        break;
+    }
+
+  });
+
+});
+
+</script>

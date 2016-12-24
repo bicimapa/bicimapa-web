@@ -1,0 +1,16 @@
+{
+  "name": "Bicimapa",
+  "dependencies": {
+    "google.maps.polyline.edit": "*",
+    "bootstrap": "*",
+    "fontawesome": "*",
+    "notifyjs": "*",
+    "ladda": "*",
+    "admin-lte": "*",
+    "isMobile": "*",
+    "js-cookie": "*",
+    "jquery-cascading-dropdown": "*",
+    "add-to-homescreen": "~3.2.2",
+    "mustache.js": "mustache#~2.2.1"
+  }
+}

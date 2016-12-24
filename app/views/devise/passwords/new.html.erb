@@ -1,0 +1,26 @@
+<div class="login-box">
+  <div class="login-logo">
+    <%= link_to t(:bicimapa), :root %>
+  </div><!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg"><%= t(:forgot_your_password) %></p>
+    <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+
+    <div style="margin-bottom: 15px; color: #dd4b39"><%= flash[:alert] %></div>
+  
+      <div class="form-group has-feedback <%= "has-error" if resource.errors[:email].any? %>">
+				<%= f.input_field :email, required: false, placeholder: t(:email), class: "form-control", autofocus: true %>
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <% if resource.errors[:email].any? %>
+          <label class="control-label"><i class="fa fa-times-circle-o"></i> <%= f.error :email %></label>
+        <% end %>
+      </div>
+
+    <%= f.button :submit, t(:send_me_reset_password_instructions), class: "btn btn-block btn-primary btn-flat" %>
+  <% end %>
+
+    <br/>
+    <%= link_to t(:register_an_account), new_user_registration_path, class:'text-center' %>
+
+  </div><!-- /.login-box-body -->
+</div><!-- /.login-box -->

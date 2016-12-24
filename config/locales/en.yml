@@ -1,0 +1,298 @@
+---
+en:
+  OR: Or
+  a_site_you_added_has_a_new_comment: A site you added has a new comment
+  a_site_you_added_has_been_modified: A site you added has been modified
+  a_site_you_commented_has_a_new_comment: A site you commented has a new comment
+  a_site_you_commented_has_been_updated: A site you commented has been updated
+  access_token: Access token
+  access_token_secret: Access token secret
+  activated: Activated
+  active_users: Active users
+  add_new_report: Add new report
+  add_new_site: Add new site
+  added_by: Added by
+  added_on: Added on
+  administration: Administration
+  administrator: Administrator
+  ago: ago
+  alberto_role: Alberto role
+  all: All
+  all_sites: All sites
+  all_sites_in_your_zone: All sites in your zone
+  all_time_ranking: All time ranking
+  amazon_s3: Amazon s3
+  android_app: Android App
+  annoucement: Annoucement
+  anonymous: Anonymous
+  api_keys: Api keys
+  app_id: App
+  are_you_sure?: Are you sure?
+  are_you_sure_you_want_to_unsubscribe_from_the_newsletter: Are you sure you want to unsubscribe from the newsletter?
+  avatar: Avatar
+  aws_access_key_id: Aws access key
+  aws_secret_access_key: Aws secret access key
+  back: Back
+  before_last_update: Before last update
+  bicimapa: Bicimapa
+  bicimapa_founder: Bicimapa founder
+  bicimapa_team: Bicimapa team
+  bicimappea: Bicimappea
+  blog: Blog
+  browser_api_key: Browser api key
+  bucket: Bucket
+  cancel: Cancel
+  categories: Categories
+  category: Category
+  change_my_password: Change my password
+  change_your_password: Change your password
+  code: Code
+  color: Color
+  comment: Comment
+  comment_cant_be_empty: Comment can't be empty
+  comments: Comments
+  configuration: Configuration
+  configure_notifications: Configure notifications
+  consumer_key: Consumer key
+  consumer_secret: Consumer secret
+  contact_us: Contact us
+  control_panel: Control panel
+  create: Create
+  create_new_ride: Add you're ride
+  created_at: Created at
+  custom_icon: Custom icon
+  dashboard: Dashboard
+  deactivated: Deactivated
+  delete: Delete
+  description: Description
+  destroy: Destroy
+  details: Details
+  developper: Developper
+  does_not_belong_to_a_category: Does not belong to a category
+  edit: Edit
+  edit_site_with_id: Edit site with id
+  editing_category: Editing category
+  editing_comment: Editing comment
+  editing_line: Editing line
+  editing_report: Editing report
+  editing_site: Editing site
+  editing_status: Editing status
+  editing_sub_category: Editing sub category
+  editing_zone: Editing zone
+  email: Email
+  email_check: Review
+  email_contactinfo: Contacts
+  email_hello: Hi %{name}!
+  email_last_session: Your last session was %{timeago} ago
+  email_lead: There are %{site_count} sites pending review in %{zone_name}
+  email_notifications: Notifications
+  email_reason: You are receiving the email because you are moderator of %{zone_name}
+  email_updates: News
+  end: End
+  english: English
+  extract_all_newsletters_emails: Extract all newsletters emails
+  extract_all_users_and_newsletters_email: Extract all users and newsletters email
+  extract_all_users_emails: Extract all users emails
+  fa_icon: Fa icon
+  facebook: Facebook
+  facebook_UID: Facebook uid
+  facebook_email_alert: Your email is required to create an account, we won't spam you and you'll be able to change it later. Please try to connect again allowing us to use your email.
+  'false': 'No'
+  file: File
+  filter: Filter
+  first: 1<sup>st</sup>
+  first_name: First name
+  followers: Followers
+  forgot_your_password: Forgot your password?
+  french: French
+  full_name: Full name
+  go: Go
+  google_analytics: Google analytics
+  google_maps: Google maps
+  guessed_first_name: First name (guessed)
+  guessed_last_name: Last name (guessed)
+  has_been_reviewed: Has been reviewed
+  has_custom_icon: Has custom icon
+  help: Help
+  here: Here
+  honest_testimonials: Honest testimonials
+  i_already_have_an_account: I already have an account
+  i_forgot_my_password: I forgot my password
+  icon: Icon
+  import: Import
+  import_kml: Import kml
+  integration_with_facebook: Integration with facebook
+  ios_app: iOS App
+  is_active: Is active
+  is_final_state: Is final state?
+  is_initial: Is initial
+  is_public: Is public
+  join_the_bicimappers_familly: Join the bicimappers familly, %{count} bicimappers and counting
+  joined_on: Joined on
+  juan_david_role: Juan david role
+  km: Km
+  label: Label
+  last_name: Last name
+  last_online_on: Last online on
+  last_update: Last update
+  latitude: Latitude
+  lines: Lines
+  link_to_facebook_profile: Link to facebook profile
+  list_of_icons_available: List of icons available
+  listing_rides_near: Listing rides near
+  load: Load
+  locale: Locale
+  login: Login
+  logout: Logout
+  longitude: Longitude
+  mail_subject: "[Bicimapa] %{zone_name} - %{sites_count} new sites today!"
+  moderation: Moderation
+  moderator: Moderator
+  moderators: Moderators
+  more: More
+  more_info: More info
+  multiple_results: Multiple results
+  must_be_a_valid_fontawesome_identifier: Must be a valid fontawesome identifier
+  my_ciclorutas: My ciclorutas
+  my_lines: My lines
+  my_profile: My profile
+  my_zones: My zones
+  name: Name
+  navigation: Navigation
+  new: New
+  new_category: New category
+  new_comment: New comment
+  new_comment_added: New comment added
+  new_line: New line
+  new_password: New password
+  new_report: New report
+  new_ride_added: New ride added
+  new_ride_help_message_html: 'View how to create a ride in this video tutorial : %{video_url}'
+  new_site: New site
+  new_status: New status
+  new_sub_category: New sub category
+  new_zone: New zone
+  newsletter: Newsletter
+  no_thanks: No thanks
+  none: None
+  nothing_found: Nothing found
+  notify_new_comment_subject: Notify new comment subject
+  notify_new_ride_subject: Notify new ride subject
+  notify_site_new_comment_mail_subject: "[Bicimapa] New comment"
+  notify_site_owner_new_comment_mail_subject: "[Bicimapa] New comment"
+  notify_site_update_commenter_mail_subject: "[Bicimapa] Site update"
+  notify_site_update_creator_mail_subject: "[Bicimapa] Site update"
+  number_of_users_who_rated_this_site: Number of users who rated this site
+  'on': 'on'
+  only_uppercase_letters: Only uppercase letters
+  origin: Origin
+  other_rides_in_the_world: Other rides in the world
+  our_team: Our team
+  password: Password
+  path_must_be_defined: Path must be defined
+  photo: Photo
+  picture: Picture
+  picture_1: Picture 1
+  picture_2: Picture 2
+  picture_3: Picture 3
+  please_come_again_later: Please come again later
+  please_enter_your_email_to_subscribre_to_the_newsletter: Please enter your email to subscribre to the newsletter
+  points: Points
+  post: Post
+  press: News papers
+  privacy: Privacy
+  profile: Profile
+  rate: Rate
+  rate_cant_be_empty: Rate cant be empty
+  rates: Rates
+  rating: Rating
+  receive_notifications: Receive notifications
+  receive_the_newsletter: Receive the newsletter
+  refresh: Refresh
+  register: Register
+  register_a_new_account: Register a new account
+  register_an_account: Register an account
+  remember_me: Remember me
+  remove_custom_icon: Remove custom icon
+  report_created: Report created
+  reports: Reports
+  retype_new_password: Retype new password
+  retype_password: Retype password
+  review_changes: Review changes
+  review_new_comment: Review new comment
+  review_them: Review them now
+  ride_will_be_rewarded_to_anonymous: Ride will be rewarded to anonymous
+  rides: Rides
+  roland_role: Roland role
+  save: Save
+  score: Score
+  search_an_address: Search an address
+  second: 2<sup>nd</sup>
+  secret_id: Secret
+  send_me_reset_password_instructions: Send me reset password instructions
+  show: Show
+  show_report_label: Report details
+  show_reports: Show reports
+  show_site_label: More
+  sign_in_to_start_your_session: Sign in to start your session
+  sign_in_using_facebook: Sign in using facebook
+  sign_up_using_facebook: Sign up using facebook
+  site_id: Site
+  site_will_be_rewarded_to_anonymous: Site will be rewarded to anonymous
+  sites: Sites
+  sites_to_review: Sites to review
+  spanish: Spanish
+  sponsors: Sponsors
+  start: Start
+  status: Status
+  statuses: Statuses
+  sub_categories: Sub categories
+  sub_category: Sub category
+  subscribe: Subscribe
+  team: Team
+  term_of_use: Term of use
+  term_of_use_contents: Term of use contents
+  terms: Terms
+  the_moderators: The moderators
+  there_are_no_new_sites_to_review: There are no new sites to review
+  third: 3<sup>rd</sup>
+  this_is_a_great_place: This is a great place
+  this_site_has_not_been_reviewed_yet: This site has not been reviewed yet.
+  this_week_ranking: This week ranking
+  to_review: To review
+  tos: Term of use
+  tracker: Tracker
+  'true': 'Yes'
+  twitter: Twitter
+  unlink_facebook_profile: Unlink facebook profile
+  update: Update
+  update_status: Update status
+  users: Users
+  ux_designer: Ux designer
+  variety: Variety
+  view_rides: View all rides
+  viewing_category: Viewing category
+  viewing_comment: Viewing comment
+  viewing_line: Viewing line
+  viewing_newsletter_email: Viewing newsletter email
+  viewing_report: Viewing report
+  viewing_site: Viewing site
+  viewing_status: Viewing status
+  viewing_sub_category: Viewing sub category
+  viewing_zone: Viewing zone
+  views:
+    pagination:
+      first: First
+      last: Last
+      next: Next
+      previous: Previous
+      truncate: Truncate
+  warning: Warning
+  'yes': 'Yes'
+  yoann_role: Yoann role
+  you_are_not_logged_in: You are not logged in
+  you_have_been_successfully_added_to_the_newsletter: You have been successfully added to the newsletter
+  you_must_be_logged_in_to_comment: You must be logged in to comment
+  you_must_be_logged_to_rate_this_site: You must be logged to rate this site
+  your_rating: Your rating
+  zones: Zones

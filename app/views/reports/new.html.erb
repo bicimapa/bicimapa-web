@@ -1,0 +1,12 @@
+<div class="row">
+
+<%= render 'form', :report => @report %>
+</div>
+
+<script>
+if (isMobile.any) {
+  addToHomescreen({ detectHomescreen: true });
+}
+</script>
+
+<%= link_to t(:back), :root %>

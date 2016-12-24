@@ -1,0 +1,135 @@
+<%= form_for(@report, url: url_for(controller: '/reports', action: :create)) do |f| %>
+  <% if report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(report.errors.count, "error") %> prohibited this report from being saved:</h2>
+
+      <ul>
+      <% report.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="col-md-4">
+    <div class="thumbnail" id="map-canvas" style="width:100%; height: 350px;"></div>
+  </div>
+  <div class="col-md-8">
+
+    <!-- Default box -->
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title"><%= t(:details) %></h3>
+      </div>
+      <div class="box-body">
+        <div class="form-group">
+          <%= f.label t(:description) %><br>
+          <%= f.text_area :description, class:"form-control" %>
+        </div>
+        <%= f.hidden_field :latitude %>
+        <%= f.hidden_field :longitude %>
+        <div id="cascading">
+          <div class="form-group">
+            <%= f.label t(:category) %><br>
+            <%= f.select(:category_id, Reports::Category.all.collect {|c| [ c.name, c.id ] }, {}, class: "form-control", id: "category")  %>
+          </div>
+          <div class="form-group">
+            <%= f.label t(:sub_category) %><br>
+            <%= f.select(:sub_category_id, {}, {}, class: "form-control", id: "sub_category")  %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label t(:photo) %><br>
+          <%= f.file_field :photo, class:"form-control", accept:"image/*;capture=camera" %>
+        </div>
+      </div>
+      <div class="box-footer clearfix">
+        <div class="actions">
+          <%= f.submit class: "btn btn-primary pull-right" %>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+<% end %>
+
+
+<script type="text/javascript">
+
+
+$(function() {
+  $('#cascading').cascadingDropdown({
+    selectBoxes: [
+        {
+            selector: '#category',
+        },
+        {
+            selector: '#sub_category',
+            requires: ['#category'],
+            source: function(request, response) {
+              
+                category_id = $('#category').val();
+
+                $.getJSON('/api/v1/reports/category/'+category_id+'/sub_categories', request, function(data) {
+                    var selectOnlyOption = data.length <= 1;
+                    response($.map(data.sub_categories, function(item, index) {
+                        return {
+                            label: item.name,
+                            value: item.id,
+                            selected: selectOnlyOption // Select if only option
+                        };
+                    }));
+                });
+            }
+        }
+    ]
+  });
+});
+
+$(function() {
+  initialize();
+});
+
+function initialize() {
+  
+	var mapOptions = {
+		center: new google.maps.LatLng(0, 0),
+		zoom: 2
+	};
+
+	var map = new google.maps.Map(document.getElementById("map-canvas"),
+			mapOptions);
+
+	var marker = new google.maps.Marker({
+	    position: new google.maps.LatLng(0, 0),
+	    map: map,
+	    draggable: true,
+            icon: "<%= image_url "warn_pin.png" %>"
+	});
+
+        <% if @latlng %>
+          latlng = new google.maps.LatLng(<%= @latlng[0] %>, <%= @latlng[1] %>);
+          map.setCenter(latlng);
+          map.setZoom(19);
+          marker.setPosition(latlng);
+        <% else %>
+          navigator.geolocation.getCurrentPosition(function(position) {
+            latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            map.setCenter(latlng);
+            map.setZoom(19);
+            marker.setPosition(latlng);
+	    document.getElementById('reports_report_latitude').value = latlng.lat();
+	    document.getElementById('reports_report_longitude').value = latlng.lng();
+          });
+        <% end %>
+
+	google.maps.event.addListener(marker, 'dragend', function(evt) {
+	    document.getElementById('reports_report_latitude').value = evt.latLng.lat();
+	    document.getElementById('reports_report_longitude').value = evt.latLng.lng();
+	});
+}
+</script>

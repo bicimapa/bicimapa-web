@@ -1,0 +1,34 @@
+{
+  "name": "google.maps.polyline.edit",
+  "version": "0.1.0",
+  "homepage": "https://github.com/ylecuyer/google.maps.polyline.edit",
+  "authors": [
+    "Yoann Lecuyer <yoann.lecuyer@gmail.com>"
+  ],
+  "description": "Enables Google Maps API V3 Polyline Editing",
+  "main": [
+	  "src/polyline.edit.js",
+	  "src/images/ghostVertex.png",
+	  "src/images/ghostVertexOver.png",
+	  "src/images/vertex.png",
+	  "src/images/vertexOver.png"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "Google",
+    "Maps",
+    "Polyline",
+    "Editing"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "examples",
+    "bower.json",
+    "README.md",
+    "screenshot-close-fill.png",
+    "screenshot.png"
+  ]
+}

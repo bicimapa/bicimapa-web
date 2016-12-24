@@ -1,0 +1,41 @@
+<div class="modal fade" id="newsletter_modal" tabindex="-1" role="dialog" data-show="false">
+  <div class="modal-dialog">
+    <%= simple_form_for Newsletter.new do |f| %>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><%= t(:join_the_bicimappers_familly, count: @bicimappers_count) %></h4>
+      </div>
+      <div class="modal-body">
+        <%= image_tag 'newsletter.png', style: 'width: 100%' %><br/>
+        <br/>
+        <p><%= t(:receive_the_newsletter) %></p>
+        <div class="input-group">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+          <input type="email" required class="form-control" name="newsletter[email]" placeholder="<%= t(:email) %>">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-newsletter btn btn-default" data-dismiss="modal"><%= t(:no_thanks) %></button>
+        <%= f.submit t(:save), class: "btn-newsletter btn btn-primary" %>
+      </div>
+    </div><!-- /.modal-content -->
+  <% end %>
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script type="text/javascript">
+
+var showNewsletter = function() {
+  var newsletter_already_shown = localStorage.getItem('newsletter_already_shown') || false;
+
+  if (!newsletter_already_shown) {
+    $("#newsletter_modal").modal('show');
+    localStorage.setItem('newsletter_already_shown', true);
+  }
+}
+
+$(function() {
+  setTimeout(showNewsletter, 30000);
+});
+</script>

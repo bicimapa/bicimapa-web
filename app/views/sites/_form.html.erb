@@ -1,0 +1,153 @@
+<div class="row">
+<%= form_for(site, html: { id: "form" }) do |f| %>
+  <% if site.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(site.errors.count, "error") %> prohibited this site from being saved:</h2>
+
+      <ul>
+      <% site.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="col-md-4">
+    <div class="thumbnail" id="map-canvas" style="width:100%; height: 350px;"></div>
+  </div>
+  <div class="col-md-8">
+
+    <% if !user_signed_in? %>
+      <div class="callout callout-warning">
+        <h4><%= t(:you_are_not_logged_in) %></h4>
+        <p><%= t(:site_will_be_rewarded_to_anonymous) %></p>
+      </div>
+    <% end %>
+
+    <!-- Default box -->
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title"><%= t(:details) %></h3>
+      </div>
+      <div class="box-body">
+        <div class="form-group">
+          <%= f.label t(:name) %><br>
+          <%= f.text_field :name, class:"form-control", required: true  %>
+        </div>
+        <div class="form-group">
+          <%= f.label t(:description) %><br>
+          <%= f.text_area :description, class:"form-control" %>
+        </div>
+        <%= f.hidden_field :latitude %>
+        <%= f.hidden_field :longitude %>
+        <div class="form-group">
+          <%= f.label t(:category) %><br>
+          <%= f.select(:category_id, Category.all.where(:variety => 'SIT').where(:is_public => true).collect {|c| [ c.name, c.id ] }, { include_blank: true }, class: "form-control")  %>
+        </div>
+        <div class="form-group">
+          <%= f.label :picture_1, t(:picture) %><br>
+          <%= f.file_field :picture_1 %>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-solid">
+      <div class="box-body">
+        <div class="pull-right">
+          <%= link_to t(:back), :root, class: "btn btn-default" %>
+          <%= f.submit t(:save), class: "btn btn-primary" %>
+        </div>
+        <div class="clearfix">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% end %>
+
+
+<script type="text/javascript">
+
+function forbiden_words(str) {
+  
+  var words = ["casa", "home", "oficina", "trabajo", "apto", "apartamento", "colegio", "hogar", "casita", "work", "universidad"]
+
+  var strl = str.toLowerCase()
+
+  for (var i = 0; i < words.length; i++) {
+    if (strl.indexOf(words[i]) != -1) {
+      return true
+    }
+  }
+
+  return false;
+
+}
+
+
+$(function() {
+  initialize();
+  $('#form').on('submit', function() {
+    var name = $('#site_name').val()
+    var description = $('#site_description').val()
+    
+    if (forbiden_words(name) || forbiden_words(description)) {
+      return confirm("Por su seguridad, no se aceptan sitios personales, continuar?");
+    }
+
+    return true;
+  });
+})
+
+function initialize() {
+  
+	var icons = [];
+
+	icons[""] = null;
+
+	<% Category.all.each do |category| %>
+	icons["<%= category.id %>"] = "<%= category.icon.url %>";
+	<% end %>
+
+	var mapOptions = {
+		center: new google.maps.LatLng(0, 0),
+		zoom: 2
+	};
+
+	var map = new google.maps.Map(document.getElementById("map-canvas"),
+			mapOptions);
+
+	<% if (site.latitude && site.longitude) then %>
+		map.setCenter(new google.maps.LatLng(<%= site.latitude %>, <%= site.longitude %>));
+		map.setZoom(15);
+	<% end %>
+
+	var marker = new google.maps.Marker({
+	    position: new google.maps.LatLng(<%= site.latitude || 0%>, <%= site.longitude || 0 %>),
+	    map: map,
+	    draggable: true,
+	    title:"<%= site.name %>"
+	});
+
+	google.maps.event.addListener(marker, 'dragend', function(evt) {
+	    console.log(evt.latLng);
+	    document.getElementById('site_latitude').value = evt.latLng.lat();
+	    document.getElementById('site_longitude').value = evt.latLng.lng();
+	});
+
+	$("#site_category_id").change(function() {
+    category_id = $(this).val();
+    marker.setIcon(icons[category_id]);
+	});
+
+}
+
+</script>

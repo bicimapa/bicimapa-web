@@ -1,0 +1,10 @@
+<section class="content-header">
+<h1>
+  <%= t(:new_comment) %>
+</h1>
+</section>
+
+<section class="content">
+  <%= display_notice notice %>
+  <%= render 'form', :comment => @comment %>
+</section>

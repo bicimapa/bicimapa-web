@@ -1,0 +1,146 @@
+<section class="content-header">
+<h1>
+  <%= t(:import_kml) %> <small><%= params[:file].original_filename %></small>
+</h1>
+</section>
+
+
+<%= form_tag({:controller => 'import', :action => 'import'}, :method => :put, :multipart => true, class: 'form-inline', id: 'form') do |f| %> 
+
+<section class="invoice">
+	<div class="row">
+    <div class="col-md-12">
+
+      <% if @sites.count > 0 %>
+      <h1 class="page-header"><%= t(:sites) %><small><%= @sites.count %></small></h1>
+
+      <div class="map-canvas" id="map-sites" style="height: 400px; width:100%;margin-bottom:12px"></div>
+
+      <script>
+        function initialize_sites() {
+          console.log("initialize_sites");
+          var mapOptions = {
+            center: { lat: -34.397, lng: 150.644},
+            zoom: 8
+          };
+          var map = new google.maps.Map(document.getElementById('map-sites'),
+              mapOptions);
+
+          var bounds = new google.maps.LatLngBounds();
+
+          for(i = 0; i < gon.sites.length; i++) {
+            site = gon.sites[i]
+
+            var latLng = new google.maps.LatLng(site[0], site[1]) 
+
+            var marker = new google.maps.Marker({
+              position: latLng,
+              map: map,
+            });
+
+            bounds.extend(latLng);
+          }
+
+          map.fitBounds(bounds);
+
+        }
+      </script>
+
+      <div class="form-group">
+        <%= label_tag :sites_name, t(:name) %>
+        <%= text_field_tag :sites_name, nil, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :sites_desc, t(:description) %>
+        <%= text_area_tag :sites_desc, nil, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :sites_category, t(:category) %>
+        <%= select_tag(:sites_category_id, options_for_select(Category.all.where(:variety => 'SIT').collect {|c| [ c.name, c.id ] }), { include_blank: true, class: 'form-control' })  %>
+      </div>
+
+      <% end %>
+
+      <% if @lines.count > 0 %>
+      <h1 class="page-header"><%= t(:lines) %><small><%= @lines.count %></small></h1>
+
+      <div class="map-canvas" id="map-lines" style="height: 400px; width:100%;margin-bottom:12px"></div>
+
+      <script>
+        function initialize_lines() {
+          console.log("initialize_lines");
+          var mapOptions = {
+            center: { lat: -34.397, lng: 150.644},
+            zoom: 8
+          };
+          var map = new google.maps.Map(document.getElementById('map-lines'),
+              mapOptions);
+
+          var bounds = new google.maps.LatLngBounds();
+
+          for(i = 0; i < gon.lines.length; i++) {
+            line = gon.lines[i]
+
+              path = []
+            for(j = 0; j < line.length; j++) {
+
+                var latLng = new google.maps.LatLng(line[j][0], line[j][1]);
+                path.push(latLng);
+                bounds.extend(latLng);
+
+            }
+
+              var linePath = new google.maps.Polyline({
+                path: path,
+                map: map
+              }); 
+          }
+
+          map.fitBounds(bounds);
+
+        }
+      </script>
+
+      <div class="form-group">
+        <%= label_tag :lines_name, t(:name) %>
+        <%= text_field_tag :lines_name, nil, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :lines_desc, t(:description) %>
+        <%= text_area_tag :lines_desc, nil, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= label_tag :lines_category, t(:category) %>
+        <%= select_tag(:lines_category_id, options_for_select(Category.all.where(:variety => 'LIN').collect {|c| [ c.name, c.id ] }), { include_blank: true, class: 'form-control' })  %>
+      </div>
+
+      <% end %>
+
+      <button id="submit" class="ladda-button btn btn-primary pull-right" style="margin-left: 7px" data-style="zoom-out"><span class="ladda-label"><%= t(:import) %></span></button>
+      <%= link_to t(:cancel), {:controller => :import, action: :kml}, class: 'btn btn-danger pull-right' %>
+
+
+      <script>
+
+      $(function() {
+
+        Ladda.bind("#submit");
+          
+        <% if @sites.count > 0 %>
+            initialize_sites();
+          <% end %>
+
+        <% if @lines.count > 0 %>
+            initialize_lines();
+          <% end %>
+
+      });
+
+      </script>
+    </div>
+  </div>
+</section>
+
+<div class="clearfix"></div>
+
+<% end %>

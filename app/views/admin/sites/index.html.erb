@@ -1,0 +1,47 @@
+<section class="content-header">
+<h1>
+  <%= t(:sites) %>
+</h1>
+</section>
+
+<section class="content">
+  <%= display_notice notice %>
+  <div class="row">
+    <% @sites.each do |site| %>
+      <div class="col-md-6">
+        <!-- Danger box -->
+
+        <div class="box box-solid box-<%= (site.has_been_reviewed)?"default":"warning" %>">
+          <div class="box-header">
+            <h3 class="box-title"><%= site.name %></h3>
+          </div>
+          <div class="box-body no-padding">
+            <table class="table" style="table-layout: fixed">
+              <tbody>
+                <tr><th style="width:25%"><%= t(:description) %></th> <td style="width:75%; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;"><%= site.description %></td></tr>
+                <tr><th><%= t(:added_by) %></th> 
+                  <td><%= added_by(site) %></td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div><!-- /.box-body -->
+          <div class="box-footer clearfix">
+            <div class="btn-group pull-right" style="margin-left:7px">
+              <%= link_to '<i class="fa fa-eye"></i>'.html_safe, admin_site_path(site), class:"btn btn-default" %>
+              <%= link_to '<i class="fa fa-pencil"></i>'.html_safe, edit_admin_site_path(site), class:"btn btn-default" %>
+              <%= link_to '<i class="fa fa-trash"></i>'.html_safe, admin_site_path(site), method: :delete, data: { confirm: t('are_you_sure?') }, class: "btn btn-danger" %>
+            </div>
+            <div class="btn-group pull-right">
+              <%= link_to t(:deactivated), {:controller => 'sites', :action => 'deactivate', :id => site}, class:"btn btn-default" + ((!site.is_active && site.has_been_reviewed)?" active ":"") %>
+              <%= link_to t(:activated), {:controller => 'sites', :action => 'activate', :id => site}, class:"btn btn-default" + ((site.is_active && site.has_been_reviewed)?" active":"") %>
+            </div>
+          </div>
+        </div><!-- /.box -->
+      </div><!-- /.col -->
+    <% end %>
+  </div>
+
+  <%= display_button_bar(@sites, [:admin]) %>
+
+</section>

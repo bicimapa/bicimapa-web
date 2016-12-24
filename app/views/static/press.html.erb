@@ -1,0 +1,117 @@
+<% content_for(:style) do %>
+
+	body {
+		background-color: #F7F7F7;
+	}
+
+<% end %>
+
+<div class="grey">
+	<div class="container">
+    	<div class="row mt">
+    		<div class="col-lg-4 col-lg-offset-4 centered">
+          <h3><%= t :honest_testimonials %></h3>
+    			<hr>
+    		</div>
+    	</div><!-- --/row ---->
+	
+		<div class="row mt">
+			<div class="col-lg-8 col-lg-offset-2 centered">
+				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">				
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner">
+						<div class="item active">
+              <h2>“El Bicimapa tiene mucha<br/>información relevante.”</h2>
+              <h5><%= link_to 'Cuando la bici se vuelve digital', 'http://www.elespectador.com/tecnologia/cuando-bici-se-vuelve-digital-articulo-575040' %> - El Tiempo</h5>
+						</div>
+						
+						<div class="item">
+              <h2>“Por medio de celulares y tabletas<br/>construyen mapa para biciusuarios.”</h2>
+              <h5><%= link_to 'La guía \'online\' para ciclistas', 'http://www.eltiempo.com/archivo/documento/CMS-13235816' %> - El Tiempo</h5>
+						</div>
+
+						<div class="item">
+              <h2>“El mapa de los ciclistas en la ciudad.”</h2>
+              <h5><%= link_to 'Haciendo la diferencia', 'http://www.noticiascaracol.com/gente-que-le-pone-el-alma/bicimapas-el-mapa-de-los-ciclistas-en-la-ciudad' %> - Noticias Caracol</h5>
+						</div>
+					</div><!-- /carousel-inner -->
+				
+				</div><!-- --/carousel-example ---->		
+			</div><!-- /col-lg-8 -->
+		</div><!-- --/row ---->
+	</div>
+</div>
+
+<div class="black">
+		<div class="container pt">
+			<div class="row mt centered">
+				<div class="col-lg-3">
+					<p><i class="fa fa-users"></i></p>
+					<h1><%= User.count %></h1>
+					<hr>
+          <h4><%= t :active_users %></h4>
+				</div>
+
+				<div class="col-lg-3">
+					<p><i class="fa fa-compass"></i></p>
+					<h1><%= Site.count %></h1>
+					<hr>
+          <h4><%= t :sites %></h4>
+				</div>
+
+				<div class="col-lg-3">
+					<p><i class="fa fa-edit"></i></p>
+					<h1><%= Reports::Report.count %></h1>
+					<hr>
+          <h4><%= t :reports %></h4>
+				</div>
+
+				<div class="col-lg-3">
+					<p><i class="fa fa-thumbs-o-up"></i></p>
+          <h1><%= @followers_count %></h1>
+					<hr>
+          <h4><%= t :followers %></h4>
+				</div>
+
+			</div><!-- /row -->
+		</div><!-- /container -->
+	</div>
+
+
+
+	<div class="grey" style="margin-bottom: 50px">
+		<div class="container">
+			<div class="row mt centered ">
+				<div class="col-lg-4 col-lg-offset-4">
+          <h3><%= t :sponsors %></h3>
+					<hr>
+				</div><!-- /col-lg-4 -->
+			</div><!-- /row -->
+			
+			<div class="row centered">
+				<div class="col-lg-4 pt">
+					<%= image_tag "sponsors/idu.png", class:"img-responsive fixed-height" %>
+				</div>
+				<div class="col-lg-4 pt">
+					<%= image_tag "sponsors/alcaldia-bogota-humana.jpg", class:"img-responsive fixed-height" %>
+				</div>
+				<div class="col-lg-4 pt">
+					<%= image_tag "sponsors/logo-cpm.jpg", class:"img-responsive fixed-height" %>
+				</div>
+
+			</div><!-- /row -->
+		</div><!-- /container -->
+	</div>
+
+	<div class="white">
+		<div class="container">
+	    	<div class="row mt">
+	    		<div class="col-lg-4 col-lg-offset-4 centered">
+            <h3><%= t :contact_us %></h3>
+	    			<hr>
+				<%= mail_to "info@bicimapa.com" %>
+
+	    		</div>
+	    	</div>
+		</div>
+	</div>

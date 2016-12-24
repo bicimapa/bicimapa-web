@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @category.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @category.description %>
+</p>
+
+<p>
+  <strong>Is public:</strong>
+  <%= bool(@category.is_public) %>
+</p>
+
+<p>
+  <strong>Is active:</strong>
+  <%= bool(@category.is_active) %>
+</p>
+
+<p>
+  <strong>Variety:</strong>
+  <%= @category.variety %>
+</p>
+
+<% if @category.variety == "LIN" then %>
+
+<p>
+  <strong>Color:</strong>
+  <span style="display: inline-block; background-color: <%=@category.color%>"><%= @category.color %></span>
+</p>
+
+<% else %>
+
+<p>
+  <strong>Icon:</strong>
+  <%= image_tag @category.icon.url %>
+</p>
+
+<% end %>

@@ -1,0 +1,41 @@
+<div class="row">
+<%= form_for([:admin, newsletter]) do |f| %>
+  <% if newsletter.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(newsletter.errors.count, "error") %> prohibited this newsletter from being saved:</h2>
+
+      <ul>
+        <% newsletter.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="col-md-6">
+    <!-- Default box -->
+    <div class="box box-solid">
+      <div class="box-header">
+        <h3 class="box-title"><%= t(:details) %></h3>
+      </div>
+      <div class="box-body">
+        <div class="form-group">
+          <%= f.label :email, t(:email) %>
+          <%= f.text_field :email, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :last_name, t(:guessed_last_name) %>
+          <%= f.text_field :last_name, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :first_name, t(:guessed_first_name) %>
+          <%= f.text_field :first_name, class: 'form-control' %>
+        </div>
+      </div><!-- /.box-body -->
+    </div><!-- /.box -->
+  </div>
+</div>
+
+
+<%= display_button_bar(newsletter, [:admin]) %>
+<% end %>

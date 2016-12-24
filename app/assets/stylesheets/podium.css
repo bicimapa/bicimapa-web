@@ -1,0 +1,82 @@
+/* Found on http://www.bootply.com/WvpO4bK5Nx */
+
+.competition-podium {
+  height: 250px;
+  position: relative;
+  width: 350px;
+  margin:50px auto;
+}
+.competition-podium .podium-block {
+  width: 110px;
+  text-align: left;
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+}
+.competition-podium .podium-block .place {
+  font-size: 1em;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 15px;
+}
+.competition-podium .podium-block .sum {
+  font-size: 1.2em;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 70px;
+}
+
+.competition-podium .podium-block.bronze {
+  color: #e6d6bf;
+  left: 10px;
+}
+.competition-podium .podium-block.bronze .podium {
+  background: #e6d6bf;
+  height: 0px;
+}
+.competition-podium .podium-block.bronze .name {
+  color: #856e4e;
+  text-align:center;
+  opacity: 0;
+}
+
+.competition-podium .podium-block.gold {
+  color: #E87E04;
+  left: 120px;
+}
+.competition-podium .podium-block.gold .podium {
+  background: #ead679;
+  height: 0px;
+}
+.competition-podium .podium-block.gold .name {
+  color: #856e4e;
+  text-align:center;
+  opacity: 0;
+}
+
+.competition-podium .podium-block.silver {
+  color: #cbd9de;
+  left: 230px;
+}
+.competition-podium .podium-block.silver .podium {
+  background: #cbd9de;
+  height: 0px;
+}
+.competition-podium .podium-block.silver .name {
+  color: #856e4e;
+  text-align:center;
+  opacity: 0;
+}
+.podium {
+  display: table;
+  width: 100%;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+.podium > * {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  color: #4D4D4D;
+  font-size: 1.5em;
+}

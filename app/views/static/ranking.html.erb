@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title"><%= t :all_time_ranking %></h3>
+      </div>
+      <div class="box-body">
+        <div class="competition-podium">
+          <div class="podium-block bronze"> 
+            <div class="name"><%= full_name(@users_all_time[2]) %></div>
+            <div class="podium">
+              <span><%= t(:third).html_safe %>
+              <% if @users_all_time[2] != nil %>
+                  <br/><strong style="font-size: 11px"><%= @users_all_time[2].score %></strong>
+              <% end %>
+              </span>
+            </div>
+          </div>
+          <div class="podium-block gold"> 
+            <div class="name"><%= full_name(@users_all_time[0]) %></div>
+            <div class="podium">
+              <span><%= t(:first).html_safe %>
+              <% if @users_all_time[0] != nil %>
+                  <br/><strong style="font-size: 11px"><%= @users_all_time[0].score %></strong>
+              <% end %>
+              </span>
+            </div>
+          </div>
+          <div class="podium-block silver"> 
+            <div class="name"><%= full_name(@users_all_time[1]) %></div>
+            <div class="podium">
+              <span><%= t(:second).html_safe %>
+              <% if @users_all_time[1] != nil %>
+                  <br/><strong style="font-size: 11px"><%= @users_all_time[1].score %></strong>
+              <% end %>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-6">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title"><%= t :this_week_ranking %> <small><%= Date.commercial(Date.today.year, Date.today.cweek) %> - <%= Date.commercial(Date.today.year, Date.today.cweek, 7) %></small></h3>
+      </div>
+      <div class="box-body">
+        <div class="competition-podium">
+          <div class="podium-block bronze"> 
+            <div class="name"><%= full_name(@users_last_week[2]) %></div>
+            <div class="podium">
+              <span><%= t(:third).html_safe %>
+              <% if @users_last_week[2] != nil %>
+                  <br/><strong style="font-size: 11px"><%= @users_last_week[2].week_score %></strong>
+              <% end %>
+              </span>
+            </div>
+          </div>
+          <div class="podium-block gold"> 
+            <div class="name"><%= full_name(@users_last_week[0]) %></div>
+            <div class="podium">
+              <span><%= t(:first).html_safe %>
+              <% if @users_last_week[0] != nil %>
+                  <br/><strong style="font-size: 11px"><%= @users_last_week[0].week_score %></strong>
+              <% end %>
+              </span>
+            </div>
+          </div>
+          <div class="podium-block silver"> 
+            <div class="name"><%= full_name(@users_last_week[1]) %></div>
+            <div class="podium">
+              <span><%= t(:second).html_safe %>
+              <% if @users_last_week[1] != nil %>
+                  <br/><strong style="font-size: 11px"><%= @users_last_week[1].week_score %></strong>
+              <% end %>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

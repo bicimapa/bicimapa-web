@@ -1,0 +1,52 @@
+<%= form_for(category, :html => { :multipart => true}) do |f| %>
+  <% if category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(category.errors.count, "error") %> prohibited this category from being saved:</h2>
+
+      <ul>
+      <% category.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :is_public %><br>
+    <%= f.check_box :is_public %>
+  </div>
+  <div class="field">
+    <%= f.label :is_active %><br>
+    <%= f.check_box :is_active %>
+  </div>
+  <div class="field">
+    <%= f.label :variety %><br>
+    <%= f.select(:variety, [['Line', 'LIN'], ['Site', 'SIT']]) %>
+  </div>
+  <div class="field">
+    <%= f.label :color %><br>
+    <%= f.color_field :color %>
+  </div>
+  <p> Previous icon:
+  	<% if category.icon? %>
+		<%= image_tag category.icon.url %>
+	<% else %>
+		None
+	<% end %>
+  </p>
+  <div class="field">
+    <%= f.label :icon %><br>
+    <%= f.file_field :icon %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

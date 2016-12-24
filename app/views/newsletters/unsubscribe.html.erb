@@ -1,0 +1,16 @@
+<div class="register-box">
+  <div class="register-logo">
+    <%= link_to t(:bicimapa), :root %>
+  </div>
+
+  <div class="register-box-body">
+    <p class="login-box-msg"><%= t(:are_you_sure_you_want_to_unsubscribe_from_the_newsletter, email: @newsletter.email) %></p>
+
+    <div style="text-align: center">
+      <%= link_to t(:no_thanks), :root, class: "btn btn-default" %>
+      <%= link_to t(:yes), {controller: "newsletters", action: "unsubscribe"}, method: :delete, class: "btn btn-primary" %>
+    </div>
+  </div><!-- /.form-box -->
+</div><!-- /.register-box -->
+
+

@@ -1,0 +1,53 @@
+<section class="content-header">
+<h1>
+  <%= t :viewing_status %> 
+</h1>
+</section>
+
+<section class="content">
+  <%= display_notice notice %>
+
+  <div class="row">
+    <div class="col-md-6">
+
+
+      <!-- Default box -->
+      <div class="box box-solid">
+        <div class="box-header">
+          <h3 class="box-title"><%= t(:details) %></h3>
+        </div>
+        <div class="box-body no-padding">
+          <table class="table">
+            <tbody>
+              <tr>
+                <th><%= t(:code) %></th>
+                <td><%= @reports_status.code %></td>
+              </tr>
+             <tr>
+                <th><%= t(:label) %></th>
+                <td><%= @reports_status.label %></td>
+              </tr>
+              <tr>
+                <th><%= t(:description) %></th>
+                <td><%= @reports_status.description %></td>
+              </tr>
+              <tr>
+                <th><%= t(:is_final_state) %></th>
+                <td><%= bool(@reports_status.is_final_state) %></td>
+              </tr>
+              <tr>
+                <th><%= t(:fa_icon) %></th>
+                <td><%= @reports_status.fa_icon %> <i class="fa <%= @reports_status.fa_icon %>"></i></td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div><!-- /.box -->
+
+    </div>
+  </div>
+
+<%= display_button_bar(@reports_status, [:admin]) %>
+
+</section>

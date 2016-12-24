@@ -1,0 +1,34 @@
+<div class="row">
+<%= simple_form_for([:admin, category]) do |f| %>
+  <% if category.errors.any? %>
+  <div class="col-md-12">
+      <div class="callout callout-danger">
+        <%= pluralize(category.errors.count, "error") %> prohibited this category from being saved
+      </div>
+  </div>
+  <% end %>
+  <div class="col-md-6">
+    <!-- Default box -->
+    <div class="box">
+      <div class="box-body">
+        <div class="form-group <%= "has-error" if category.errors[:code].any? %>">
+          <%= f.label :name, t(:name) %>
+          <%= f.text_field :name, class: 'form-control' %>
+          <% if category.errors[:name].any? %>
+            <label class="control-label"><i class="fa fa-times-circle-o"></i> <%= f.error :name %></label>
+          <% end %>
+        </div>
+        <div class="form-group <%= "has-error" if category.errors[:description].any? %>">
+          <%= f.label :description, t(:description) %>
+          <%= f.text_area :description, class: 'form-control' %>
+          <% if category.errors[:description].any? %>
+            <label class="control-label"><i class="fa fa-times-circle-o"></i> <%= f.error :description %></label>
+          <% end %>
+        </div>
+      </div><!-- /.box-body -->
+    </div><!-- /.box -->
+  </div>
+</div>
+
+<%= display_button_bar(category, [:admin]) %>
+<% end %>

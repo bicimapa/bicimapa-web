@@ -1,0 +1,6 @@
+<h1>Editing Profile</h1>
+
+<%= render 'form', :user => @user %>
+
+<%= link_to t(:show), admin_user_path(@user) %> |
+<%= link_to t(:back), :back %>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html style="height:100%">
+<head>
+	<%= render 'layouts/ascii' %>
+        <% og url: url_for(:locale => nil, :host => "bicimapa.com", :protocol => "https") %>
+        <% og site_name: "Bicimapa" %>
+        <% twitter site: "@bicimapa" %>
+        <% twitter card: "summary" %>
+        <%= metamagic %>
+  <title><%= t :bicimapa %></title>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&sensor=false"></script>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'index', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'mobile', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'favicon.ico' %>
+  <%= include_gon %>
+  <script type="text/javascript">
+    var lines = <%= @lines_as_json %>;
+    var reports = <%= @reports_as_json %>;
+  </script>
+  <%= render 'layouts/fonts' %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+	#map-canvas img {
+		max-width: none;
+	}
+  </style>
+</head>
+<body style="height:100%;margin:0px;padding-top:50px" data-no-turbolink>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <!-- We use the fluid option here to avoid overriding the fixed width of a normal container within the narrow content columns. -->
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-6">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+	  <%= link_to t(:bicimapa), :root, class:"navbar-brand" %>
+        </div>
+
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+	<form class="navbar-form navbar-left" role="search">
+	<div class="form-group">
+    <input type="text" id="q" class="form-control" placeholder="<%= t :search_an_address %>">
+	</div>
+  <button type="button" id="search_btn" class="btn btn-default"><%= t :go %></button>
+	</form>
+          <ul class="nav navbar-nav">
+	  <li><%= link_to '<i class="fa fa-facebook"></i>'.html_safe, "https://www.facebook.com/bicimapa", :target => "_blank" %></li>
+	  <li><%= link_to '<i class="fa fa-twitter"></i>'.html_safe, "https://www.twitter.com/bicimapa", :target => "_blank" %></li>
+	  <li><%= link_to '<i class="fa fa-trophy"></i>'.html_safe, {controller: :static, action: :ranking} %></li>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-calendar"></i> <%= t :rides %> <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to t(:view_rides), {controller: :rides, action: :index} %></li>
+            <li><%= link_to t(:create_new_ride), {controller: :rides, action: :new} %></li>
+          </ul>
+        </li>
+          </ul>
+
+	  <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= t(:more) %> <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <%= link_to locale: :en do %>
+                <%= image_tag "flags/gb.png", class: 'vertical-align: baseline' %>
+                <%= t(:english) %>
+              <% end %>
+          </li>
+            <li>
+              <%= link_to locale: :fr do %>
+                <%= image_tag "flags/fr.png", class: 'vertical-align: baseline' %>
+                <%= t(:french) %>
+              <% end %>
+          </li>
+            <li>
+              <%= link_to locale: :es do %>
+                <%= image_tag "flags/es.png", class: 'vertical-align: baseline' %>
+                <%= t(:spanish) %>
+              <% end %>
+          </li>
+            <li class="divider"></li>
+            <li><%= link_to '<i class="fa fa-android"></i>'.html_safe + t(:android_app), "https://play.google.com/store/apps/details?id=fr.ylecuyer.colazo&hl=#{I18n.locale}" %></li>
+            <li><%= link_to '<i class="fa fa-apple"></i>'.html_safe + t(:ios_app), "https://itunes.apple.com/#{I18n.locale}/app/bicimapa/id851915700" %></li>
+            <li class="divider"></li>
+					<li><%= link_to t(:press), {controller: '/static', action: :press} %></li>
+					<li><%= link_to t(:team), {controller: '/static', action: :team} %></li>
+					<li><%= link_to t(:blog), "http://blog.bicimapa.com" %></li>
+					<li><%= link_to t(:tos), {controller: '/static', action: :tos} %></li>
+					<li><%= link_to t(:newsletter), new_newsletter_path %></li>
+          </ul>
+        </li>
+      </ul>
+			    <% case I18n.locale %>
+			    <% when :fr %>
+				    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" class="navbar-form navbar-right">
+			    <div class="form-group">
+					    <input type="hidden" name="cmd" value="_s-xclick">
+					    <input type="hidden" name="hosted_button_id" value="UBESRVDN2U992">
+					    <input type="image" src="https://www.paypalobjects.com/fr_FR/FR/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="Faire un don" class="form-control">
+					    <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+			    </div>
+				    </form>
+			     <% when :es %>
+				    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="navbar-form navbar-right">
+			    <div class="form-group">
+					    <input type="hidden" name="cmd" value="_s-xclick">
+					    <input type="hidden" name="hosted_button_id" value="6TJ46DEGJV7MN">
+					    <input type="image" src="https://www.paypalobjects.com/es_ES/ES/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="Donar" class="form-control">
+					    <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+			    </div>
+				    </form>
+			    <% when :en %>
+				    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="navbar-form navbar-right">
+			    <div class="form-group">
+					    <input type="hidden" name="cmd" value="_s-xclick">
+					    <input type="hidden" name="hosted_button_id" value="VJ33P8ECZ5X8G">
+					    <input type="image" src="https://www.paypalobjects.com/en_GB/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="Donate" class="form-control">
+					    <img alt="" border="0" src="https://www.paypalobjects.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+			    </div>
+				    </form>
+
+			     <% end %>
+
+	  <% if user_signed_in? %>
+		  <%= link_to(t(:logout), destroy_user_session_path, :method => :delete, class: "btn btn-warning navbar-btn navbar-right", style:"margin-left: 15px") %> 
+     	  <% else %>
+		  <%= link_to(t(:register), new_user_registration_path, class:"btn btn-success navbar-btn navbar-right", style:"margin-left:7px")  %>   
+		  <%= link_to(t(:login), new_user_session_path, class:"btn btn-primary navbar-btn navbar-right")  %>   
+	  <% end %>
+
+		
+	  <% if user_signed_in? %> 
+          <ul class="nav navbar-nav">
+	  <li><%= link_to t(:profile), controller: '/profiles', action: 'show' %></li>
+	  <% if current_user.is_moderator %>
+			     <li><%= link_to t(:moderation), controller: 'moderator/sites', action: 'index' %></li>
+	  <% end %>
+	  <% if current_user.is_admin %>
+	       <li><%= link_to t(:administration), controller: 'admin/static', action: 'index' %></li>
+  	  <% end %>
+	  </ul>
+	  <% end %>
+
+        </div><!-- /.navbar-collapse -->
+      </div>
+    </nav>
+<div id="map-canvas" style="height:100%; width:100%"></div>
+
+<div id="filters">
+  <%= image_tag "close.png", id: "close_btn" %>
+  <div class="title">
+    <span>
+      <a id="all_sites"><%= t :all %></a> | <a id="none_sites"><%= t :none %></a>
+    </span>
+  </div>
+
+  <div id="sites">
+    <% Category.where(variety: 'SIT').where(is_active: true).each do |category| %>
+      <div class="checkbox_flt"><input type="checkbox" name="nom" value="<%= category.id %>" checked/> <%= category.name %> <%= image_tag category.icon.url %></div>
+    <% end %>
+  </div>
+
+  <div class="title">
+    <span>
+      <a id="all_lines"><%= t :all %></a> | <a id="none_lines"><%= t :none %></a>
+    </span>
+  </div>
+
+  <div id="lines">
+    <% Category.where(variety: 'LIN').where(is_active: true).each do |category| %>
+      <div class="checkbox_flt"><input type="checkbox" value="<%= category.id %>" checked/> <%= category.name %>
+      <svg height="4" width="20" viewBox="0 0 20 4" y="0px" x="0px">
+        <path style="fill:<%= category.color %>" d="M 18.8162,4 1.1214954,4 C 0.49844235,4 0,3.2 0,2.2 L 0,1.7 C 0,0.8 0.49844235,0 1.1214954,0 L 18.878507,0 C 19.501558,0 20,0.8 20,1.8 l 0,0.5 C 19.937692,3.2 19.43925,4 18.8162,4 Z" />
+      </svg>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="reports">
+    <div class="checkbox_flt"><input id="show_reports" type="checkbox" checked/> <%= t :show_reports %> <%= image_tag 'warn_pin.png' %></div>
+  </div>
+
+  <div id="refresh">
+    <button type="button" id="refresh_btn" class="btn btn-primary btn-block"><%= t :refresh %></button>
+  </div>
+
+</div><!-- filters -->
+
+<div id="filters_btn">
+  <%= t(:filter) %>
+</div>
+
+	<%= render 'layouts/announcement' %>
+  <%= render 'layouts/newsletter' %>
+</body>
+</html>
