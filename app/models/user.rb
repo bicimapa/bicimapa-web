@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  scope :facebook, -> { where.not(facebook_uid: nil) }
+
   has_many :comments
 
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "64x64!" }, :default_url => "/images/:style/missing.png"
@@ -89,26 +91,11 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :zones, class_name: 'Zone', join_table: 'moderators_zones', foreign_key: 'moderator_id'
   has_many :ratings
 
-  def score
-    sites.count + lines.count + zones.count + comments.count + ratings.count
-  end
-
-  def week_score
-    dt = Date.commercial(Date.today.year, Date.today.cweek)
-
-    sites.where('created_at >= ?', dt).count + lines.where('created_at >= ?', dt).count + zones.where('created_at >= ?', dt).count + ratings.where('updated_at >= ?', dt).count
-
-  end
-
-  def self.sort_by_rank_desc
-    all.sort_by(&:score).reverse
-  end
-
-  def self.sort_by_rank_desc_this_week
-    all.sort_by(&:week_score).reverse
-  end
-
   def full_name
     "#{last_name} #{first_name}"
+  end
+
+  def has_facebook
+    facebook_uid != nil
   end
 end

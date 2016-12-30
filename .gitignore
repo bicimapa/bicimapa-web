@@ -44,3 +44,5 @@ config/projections.json
 
 sitemaps/
 sitemap.xml.gz
+
+docker

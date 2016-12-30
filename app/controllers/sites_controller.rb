@@ -4,16 +4,19 @@ class SitesController < ApplicationController
   # GET /sites
   # GET /sites.json
   def index
+    authorize Site
     @sites = Site.all
   end
 
   # GET /sites/1
   # GET /sites/1.json
   def show
+    authorize @site
   end
 
   # GET /sites/new
   def new
+    authorize Site
     @site = Site.new
 
     return unless params[:pos]
@@ -26,11 +29,13 @@ class SitesController < ApplicationController
 
   # GET /sites/1/edit
   def edit
+    authorize @site
   end
 
   # POST /sites
   # POST /sites.json
   def create
+    authorize Site
     @site = Site.new(site_params)
 
     @site.origin = 'WEB'
@@ -50,6 +55,7 @@ class SitesController < ApplicationController
   # PATCH/PUT /sites/1
   # PATCH/PUT /sites/1.json
   def update
+    authorize @site
     respond_to do |format|
       if @site.update(site_params)
         format.html { redirect_to @site, notice: 'Site was successfully updated.' }
@@ -64,6 +70,7 @@ class SitesController < ApplicationController
   # DELETE /sites/1
   # DELETE /sites/1.json
   def destroy
+    authorize @site
     @site.destroy
     respond_to do |format|
       format.html { redirect_to sites_url }
@@ -73,6 +80,7 @@ class SitesController < ApplicationController
 
   # PATCH /sites/1/rate
   def rate
+    authorize @site
     rating = Rating.where(site_id: @site.id, user_id: current_user.id).first_or_create(site_id: @site.id, user_id: current_user.id)
 
     rating.rate = params[:rate]
@@ -84,6 +92,8 @@ class SitesController < ApplicationController
 
   # PATH /sites/1/comment
   def comment
+
+    authorize @site
 
     comment = @site.comments.create
     comment.comment = params[:comment]

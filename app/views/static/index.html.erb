@@ -8,25 +8,29 @@
         <% twitter card: "summary" %>
         <%= metamagic %>
   <title><%= t :bicimapa %></title>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&sensor=false"></script>
+  <script type="text/javascript" src="https://geoiplookup.wikimedia.org/"></script>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'index', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'mobile', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <%= favicon_link_tag 'favicon.ico' %>
-  <%= include_gon %>
-  <script type="text/javascript">
-    var lines = <%= @lines_as_json %>;
-    var reports = <%= @reports_as_json %>;
-  </script>
   <%= render 'layouts/fonts' %>
+  <%= include_gon %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
 	#map-canvas img {
 		max-width: none;
 	}
   </style>
+  <script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY']%>&callback=initMap"></script>
+  <script type="text/javascript">
+    var locale = "<%= I18n.locale %>";
+    var new_site_path = "<%= new_site_path %>"; var new_site_label = "<%= I18n.t(:add_new_site) %>";
+    var new_report_path = "<%= new_report_path %>"; var new_report_label = "<%= I18n.t(:add_new_report) %>";
+    var show_site_path = "<%= sites_path %>"; var show_site_label = "<%= I18n.t(:show_site_label) %>";
+    var show_report_path = "<%= reports_path %>"; var show_report_label = "<%= I18n.t(:show_report_label) %>";
+  </script>
 </head>
 <body style="height:100%;margin:0px;padding-top:50px" data-no-turbolink>
 
@@ -55,7 +59,6 @@
           <ul class="nav navbar-nav">
 	  <li><%= link_to '<i class="fa fa-facebook"></i>'.html_safe, "https://www.facebook.com/bicimapa", :target => "_blank" %></li>
 	  <li><%= link_to '<i class="fa fa-twitter"></i>'.html_safe, "https://www.twitter.com/bicimapa", :target => "_blank" %></li>
-	  <li><%= link_to '<i class="fa fa-trophy"></i>'.html_safe, {controller: :static, action: :ranking} %></li>
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-calendar"></i> <%= t :rides %> <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -140,12 +143,9 @@
 		
 	  <% if user_signed_in? %> 
           <ul class="nav navbar-nav">
-	  <li><%= link_to t(:profile), controller: '/profiles', action: 'show' %></li>
-	  <% if current_user.is_moderator %>
-			     <li><%= link_to t(:moderation), controller: 'moderator/sites', action: 'index' %></li>
-	  <% end %>
-	  <% if current_user.is_admin %>
-	       <li><%= link_to t(:administration), controller: 'admin/static', action: 'index' %></li>
+	  <li><%= link_to t(:profile), user_path(current_user) %></li>
+	  <% if current_user.is_moderator || current_user.is_admin %>
+	       <li><%= link_to t(:administration), admin_root_path %></li>
   	  <% end %>
 	  </ul>
 	  <% end %>
@@ -153,7 +153,7 @@
         </div><!-- /.navbar-collapse -->
       </div>
     </nav>
-<div id="map-canvas" style="height:100%; width:100%"></div>
+<div id="map" style="height:100%; width:100%"></div>
 
 <div id="filters">
   <%= image_tag "close.png", id: "close_btn" %>
@@ -165,7 +165,7 @@
 
   <div id="sites">
     <% Category.where(variety: 'SIT').where(is_active: true).each do |category| %>
-      <div class="checkbox_flt"><input type="checkbox" name="nom" value="<%= category.id %>" checked/> <%= category.name %> <%= image_tag category.icon.url %></div>
+      <div class="checkbox_flt"><input type="checkbox" name="nom" value="<%= category.id %>" <%= "checked" if category.is_initial %>/> <%= category.name %> <%= image_tag category.icon.url %></div>
     <% end %>
   </div>
 
@@ -177,7 +177,7 @@
 
   <div id="lines">
     <% Category.where(variety: 'LIN').where(is_active: true).each do |category| %>
-      <div class="checkbox_flt"><input type="checkbox" value="<%= category.id %>" checked/> <%= category.name %>
+      <div class="checkbox_flt"><input type="checkbox" value="<%= category.id %>" <%= "checked" if category.is_initial %>/> <%= category.name %>
       <svg height="4" width="20" viewBox="0 0 20 4" y="0px" x="0px">
         <path style="fill:<%= category.color %>" d="M 18.8162,4 1.1214954,4 C 0.49844235,4 0,3.2 0,2.2 L 0,1.7 C 0,0.8 0.49844235,0 1.1214954,0 L 18.878507,0 C 19.501558,0 20,0.8 20,1.8 l 0,0.5 C 19.937692,3.2 19.43925,4 18.8162,4 Z" />
       </svg>

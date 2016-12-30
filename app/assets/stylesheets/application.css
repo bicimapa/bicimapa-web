@@ -10,13 +10,13 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
  *= require bootstrap/less/bootstrap
  *= require fontawesome/less/font-awesome
  *= require ladda/dist/ladda-themeless.min
  *= require smalot-bootstrap-datetimepicker/css/bootstrap-datetimepicker
  *= require add-to-homescreen/style/addtohomescreen.css
+ *= require admin-lte/dist/css/AdminLTE.css
  */
 
 body {
@@ -137,4 +137,15 @@ body {
 
 .fa-x {
   font-size: 1.4em !important;
+}
+
+.empty {
+  color: #bbb;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.table th {
+  width: 150px;
 }

@@ -7,7 +7,7 @@
         <% twitter site: "@bicimapa" %>
         <%= metamagic %>
   <title><%= t :bicimapa %><% if @site && !@site.new_record? %> | <%= @site.category.name %> | <%= @site.name %> <% end %></title>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&sensor=false"></script>
+  <script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&libraries=drawing&callback=initMap"></script>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -46,7 +46,6 @@
           <ul class="nav navbar-nav">
 	  <li><%= link_to '<i class="fa fa-facebook"></i>'.html_safe, "https://www.facebook.com/bicimapa", :target => "_blank" %></li>
 	  <li><%= link_to '<i class="fa fa-twitter"></i>'.html_safe, "https://www.twitter.com/bicimapa", :target => "_blank" %></li>
-	  <li><%= link_to '<i class="fa fa-trophy"></i>'.html_safe, {controller: '/static', action: :ranking} %></li>
     <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-calendar"></i> <%= t :rides %> <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -131,12 +130,9 @@
 		
 	  <% if user_signed_in? && (current_user.is_moderator || current_user.is_admin) %> 
           <ul class="nav navbar-nav">
-	  <li><%= link_to t(:profile), controller: '/profiles', action: 'show' %></li>
-	  <% if current_user.is_moderator %>
-			     <li><%= link_to t(:moderation), controller: 'moderator/sites', action: 'index' %></li>
-	  <% end %>
-	  <% if current_user.is_admin %>
-	       <li><%= link_to t(:administration), controller: 'admin/static', action: 'index' %></li>
+	  <li><%= link_to t(:profile), user_path(current_user) %></li>
+	  <% if current_user.is_moderator || current_user.is_admin %>
+	       <li><%= link_to t(:administration), admin_root_path %></li>
   	  <% end %>
 	  </ul>
 	  <% end %>

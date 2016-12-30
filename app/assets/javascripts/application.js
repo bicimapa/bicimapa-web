@@ -15,18 +15,14 @@
 //= require js-cookie/src/js.cookie
 //= require announcements
 //= require turbolinks
-//= require google.maps.polyline.edit/src/polyline.edit
 //= require bootstrap/dist/js/bootstrap
 //= require notifyjs/dist/notify
 //= require notifyjs/dist/styles/bootstrap/notify-bootstrap
 //= require spin.js/spin
 //= require ladda/dist/ladda.min
 //= require admin-lte/dist/js/app
-//= require podium
-//= require maps
 //= require announcement
 //= require notify
-//= require config/polyline
 //= require isMobile/isMobile
 //= require jquery-cascading-dropdown/dist/jquery.cascadingdropdown
 //= require smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker
@@ -34,3 +30,6 @@
 //= require smalot-bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.es
 //= require add-to-homescreen/src/addtohomescreen.js
 //= require mustache.js/mustache.min.js
+//= require Wicket/wicket.js
+//= require Wicket/wicket-gmap3.js
+//= require querystring/dist/querystring.js

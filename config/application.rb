@@ -21,6 +21,8 @@ module Bicimapa
     # config.i18n.default_locale = :de
     config.i18n.available_locales = [:en, :es, :fr, :dummy]
 
+    config.active_record.raise_in_transactional_callbacks = true
+
     config.middleware.use(Rack::Tracker) do
       handler :google_analytics,  tracker: ENV['GOOGLE_ANALYTICS_TRACKER']
     end
@@ -29,6 +31,7 @@ module Bicimapa
     config.assets.precompile += %w( adminlte.css )
     config.assets.precompile += %w( index.js )
     config.assets.precompile += %w( mobile.js )
+    config.assets.precompile += %w( google.maps.polyline.edit/src/polyline.edit.js )
     #config.assets.precompile << /\.(?:svg|eot|woff|ttf)\z/
   end
 end

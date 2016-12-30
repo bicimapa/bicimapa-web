@@ -46,6 +46,8 @@ gem 'premailer-rails'
 gem 'sitemap_generator'
 gem 'metamagic'
 gem 'graphql'
+gem 'activeadmin', '~> 1.0.0.pre2'
+gem "pundit"
 
 gem 'simplecov', group: [:development, :test]
 
@@ -57,7 +59,6 @@ group :development do
   gem 'spring'
   gem 'sqlite3'
   gem 'rails-erd'
-  gem 'letter_opener'
   gem 'capistrano'
   gem 'capistrano-bundler'
   gem 'capistrano-rvm'
@@ -77,7 +78,5 @@ end
 
 group :production do
   gem 'passenger'
-  gem 'aws-sdk'
-  gem 'rails_12factor'
   gem 'exception_notification'
 end

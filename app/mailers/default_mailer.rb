@@ -1,23 +1,6 @@
 class DefaultMailer < ActionMailer::Base
   default from: 'no-reply@bicimapa.com'
 
-  def notify_team_new_comment(user)
-    I18n.with_locale(user.locale) do
-      mail(
-        to: user.email,
-        subject: I18n.t(:notify_new_comment_subject)
-      )
-    end
-  end
-
-  def notify_team_new_ride(user, ride)
-    I18n.with_locale(user.locale) do
-      mail(
-        to: user.email,
-        subject: I18n.t(:notify_new_ride_subject)
-      )
-    end
-  end
 
   def notify_pending_review(user, zone, nb)
     @zone_name = zone.name

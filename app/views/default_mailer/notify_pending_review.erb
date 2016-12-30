@@ -299,7 +299,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 					<td>
 						<h4><%= site.name %></h4>
 						<p class=""><%= site.name %></p>
-						<%= link_to (t(:email_check) + ' &raquo;').html_safe , moderator_sites_review_url , class:'btn' %>
+						<%= link_to (t(:email_check) + ' &raquo;').html_safe , admin_site_url , class:'btn' %>
 					</td>
 				</tr>
 			</table>
@@ -312,7 +312,7 @@ ul.sidebar li a h1,ul.sidebar li a h2,ul.sidebar li a h3,ul.sidebar li a h4,ul.s
 					<td>
 						
 						<!-- Callout Panel -->
-						<p class="callout">	<%= t(:email_last_session, timeago: time_ago_in_words(@user.last_sign_in_at)) %> <%= link_to t(:review_them), moderator_sites_review_url %></p><!-- Display the last date when a place was approved--><!-- /callout panel -->
+						<p class="callout">	<%= t(:email_last_session, timeago: time_ago_in_words(@user.last_sign_in_at)) %> <%= link_to t(:review_them), admin_site_url %></p><!-- Display the last date when a place was approved--><!-- /callout panel -->
 						
 					</td>
 				</tr>

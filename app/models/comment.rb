@@ -31,10 +31,7 @@ class Comment < ActiveRecord::Base
   end
 
   def notify_team
-    users = ApplicationController.helpers.get_team_users
-    users.each do |user|
-      DefaultMailer.notify_team_new_comment(user).deliver
-    end
+    AdminMailer.new_comment().deliver_now
   end
 
 end

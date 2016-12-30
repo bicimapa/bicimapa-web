@@ -1,62 +1,51 @@
-<div class="row">
-<%= simple_form_for(ride) do |f| %>
+<%= simple_form_for ride do |f| %>
 
-  <div class="col-md-6">
-    <div class="callout callout-info">
-      <h4><%= t(:help) %></h4>
-      <p><%= t(:new_ride_help_message_html, video_url: link_to("https://youtu.be/EBj3U_WJwtA", "https://youtu.be/EBj3U_WJwtA", target: "_blank")) %></p>
-    </div>
+  <%= row do %>
+    <%= column do %>
+      <%= callout(
+        I18n.t(:new_ride_help_message_html, video_url: link_to("https://youtu.be/EBj3U_WJwtA", "https://youtu.be/EBj3U_WJwtA", target: "_blank")),
+        "Test",
+        :info)
+      %>
 
-    <% if ride.errors[:path].any? %>
-      <div class="callout callout-danger">
-        <p><%= t(:path_must_be_defined) %></p>
-      </div>
+      
+      <% if ride.errors[:path].any? %>
+        <%= callout(t(:path_must_be_defined), "Errors", :danger) %>
+      <% end %>
+
+      <%= panel do %>
+        <div id="map" style="width:100%; height: 500px;"></div>
+        <%= render partial: "shared/rides/googlemap", locals: { ride: @ride } %>
+      <% end %>
     <% end %>
 
-    <div class="thumbnail" id="map-canvas" style="width:100%; height: 500px;"></div>
-  </div>
-  <div class="col-md-6">
 
-    <% if !user_signed_in? %>
-      <div class="callout callout-warning">
-        <h4><%= t(:you_are_not_logged_in) %></h4>
-        <p><%= t(:ride_will_be_rewarded_to_anonymous) %></p>
-      </div>
+    <%= column do %>
+
+      <% if !user_signed_in? %>
+        <%= callout(t(:you_are_not_logged_in), t(:ride_will_be_rewarded_to_anonymous)) %>
+      <% end %>
+
+      <%= panel("Details") do %>
+        <%= form_table do %>
+          <%= f.input :name %>
+          <%= f.input :description %>
+          <%= f.input :start, as: :string %>
+          <%= f.input :end, as: :string %>
+          <%= f.input :path, as: :hidden %>
+          <%= f.input :picture %>
+        <% end %>
+      <% end %>
+
     <% end %>
 
-    <!-- Default box -->
-    <div class="box">
-      <div class="box-header">
-        <h3 class="box-title"><%= t(:details) %></h3>
-      </div>
-      <div class="box-body">
-        <div class="form-group <%= "has-error" if ride.errors[:name].any? %>">
-          <%= f.label t(:name) %><br>
-          <%= f.text_field :name, class:"form-control", required: true %>
-          <% if ride.errors[:name].any? %>
-            <label class="control-label"><i class="fa fa-times-circle-o"></i> <%= f.error :name %></label>
-          <% end %>
-        </div>
-        <%= f.text_area :path, hidden: true %>
-        <div class="form-group">
-          <%= f.label t(:description) %><br>
-          <%= f.text_area :description, class:"form-control" %>
-        </div>
-        <div class="form-group <%= "has-error" if ride.errors[:start].any? %>">
-          <%= f.label t(:start) %><br>
-          <%= f.text_field :start, class:"form-control", id: "start", required: true %>
-          <% if ride.errors[:start].any? %>
-            <label class="control-label"><i class="fa fa-times-circle-o"></i> <%= f.error :start %></label>
-          <% end %>
-        </div>
-        <div class="form-group">
-          <%= f.label t(:end) %><br>
-          <%= f.text_field :end, class:"form-control", id: "end" %>
-        </div>
-        <div class="form-group">
-          <%= f.label t(:picture) %><br>
-          <%= f.file_field :picture, class:"form-control" %>
-        </div>
+  <% end %>
+
+  <%= button_bar do %>
+    <%= link_to t(:back), :root, class: "btn btn-default" %>
+    <%= f.submit t(:save), class: "btn btn-primary" %>
+  <% end %>
+
         <script>
           $(function() {
             var options = {
@@ -64,194 +53,11 @@
               autoclose: true,
               format: 'yyyy-mm-dd hh:ii'
             }
-            $('#start').datetimepicker(options);
-            $('#end').datetimepicker(options);
+            $('#ride_start').datetimepicker(options);
+            $('#ride_end').datetimepicker(options);
           });
         </script>
-      </div>
-    </div>
 
-
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-12">
-    <div class="box box-solid">
-      <div class="box-body">
-        <div class="pull-right">
-          <%= link_to t(:back), :root, class: "btn btn-default" %>
-          <%= f.submit t(:save), class: "btn btn-primary" %>
-        </div>
-        <div class="clearfix">
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <% end %>
 
-
-<script type="text/javascript">
-
-if (!google.maps.Polyline.prototype.getBounds)
-  google.maps.Polyline.prototype.getBounds = function() {
-       
-        var bounds = new google.maps.LatLngBounds();
-        
-        this.getPath().forEach( function(latlng) { bounds.extend(latlng); } ); 
-       
-        return bounds; 
-       
-  }
-
-$(function() {
-  initialize();
-})
-
-function initialize() {
-  
-  var ppath = $('#ride_path').val();
-
-	var mapOptions = {
-		center: new google.maps.LatLng(0, 0),
-		zoom: 2
-	};
-
-  var waitingForFirstPoint = true;
-  var startMarker = null;
-  
-  var waitingForLastPoint = true;
-  var lastMarker = null;
-
-	var map = new google.maps.Map(document.getElementById("map-canvas"),
-			mapOptions);
-
-  if (ppath != "") {
-
-    ppath = JSON.parse(ppath).map(function(elt) {
-      return {lat: elt[0], lng: elt[1]};
-    })
-
-      startMarker = new google.maps.Marker({
-        position: ppath[0],
-        map: map,
-        title: '<%= I18n.t(:start) %>',
-        icon: '<%= image_url "start.png" %>'
-      });
-
-      waitingForFirstPoint = false;
-
-      endMarker = new google.maps.Marker({
-        position: ppath[ppath.length-1],
-        map: map,
-        title: '<%= I18n.t(:end) %>',
-        icon: '<%= image_url "end.png" %>'
-      });
-
-      waitingForLastPoint = false;
-
-    var polyline = new google.maps.Polyline({
-      map: map,
-      path: ppath
-    });
-
-    google.maps.event.addListener(polyline, 'update_at', function(index, position){
-
-      if (index == 0) {
-        startMarker.setPosition(position);
-      }
-
-      if (index == polyline.getPath().length - 1) {
-        endMarker.setPosition(position);
-      } 
-
-    });
-
-    var update_ride_points_input = function() {
-
-      var coords = [];
-      polyline.getPath().forEach(function(elt, idx) {
-        coords.push([elt.lat(), elt.lng()]);
-      });
-
-      $('#ride_path').val(JSON.stringify(coords));
-    }
-
-    google.maps.event.addListener(polyline, 'update_at', update_ride_points_input);
-    google.maps.event.addListener(polyline, 'insert_at', update_ride_points_input);
-    google.maps.event.addListener(polyline, 'remove_at', update_ride_points_input);
-
-    polyline.edit();
-    map.fitBounds(polyline.getBounds());
-  }
-
-  google.maps.event.addListener(map, 'click', function(e) {
-    
-    if (!(waitingForFirstPoint || waitingForLastPoint))
-      return;
-
-    if (waitingForFirstPoint) {
-      startMarker = new google.maps.Marker({
-        position: e.latLng,
-        map: map,
-        title: '<%= I18n.t(:start) %>',
-        icon: '<%= image_url "start.png" %>'
-      });
-
-      waitingForFirstPoint = false;
-      return;
-    }
-
-    if (waitingForLastPoint) {
-      endMarker = new google.maps.Marker({
-        position: e.latLng,
-        map: map,
-        title: '<%= I18n.t(:end) %>',
-        icon: '<%= image_url "end.png" %>'
-      });
-
-      waitingForLastPoint = false;
-    }
-
-    var polyline = new google.maps.Polyline({
-      map: map,
-      path: [
-        startMarker.getPosition(),
-        endMarker.getPosition()
-      ]
-    });
-
-    google.maps.event.addListener(polyline, 'update_at', function(index, position){
-
-      if (index == 0) {
-        startMarker.setPosition(position);
-      }
-
-      if (index == polyline.getPath().length - 1) {
-        endMarker.setPosition(position);
-      } 
-
-    });
-
-    var update_ride_points_input = function() {
-
-      var coords = [];
-      polyline.getPath().forEach(function(elt, idx) {
-        coords.push([elt.lat(), elt.lng()]);
-      });
-
-      $('#ride_path').val(JSON.stringify(coords));
-    }
-
-    google.maps.event.addListener(polyline, 'update_at', update_ride_points_input);
-    google.maps.event.addListener(polyline, 'insert_at', update_ride_points_input);
-    google.maps.event.addListener(polyline, 'remove_at', update_ride_points_input);
-
-    polyline.edit();
-
-  });
-}
-
-</script>

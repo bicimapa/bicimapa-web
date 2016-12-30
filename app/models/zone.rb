@@ -7,6 +7,9 @@ class Zone < ActiveRecord::Base
 
   has_and_belongs_to_many :moderators, association_foreign_key: 'moderator_id', join_table: 'moderators_zones', class_name: 'User'
 
+  validates :name, presence: true
+  validates :polygon, presence: true
+
   def rb_points
     ActiveSupport::JSON.decode points
   end

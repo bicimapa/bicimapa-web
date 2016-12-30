@@ -26,15 +26,11 @@ module ApplicationHelper
     end_lat = path.points[-1].y.round 5
     end_lon = path.points[-1].x.round 5
 
-    "https://maps.googleapis.com/maps/api/staticmap?size=1024x512&path=weight:3|enc:#{polyline}&markers=icon:#{"http://goo.gl/aGkuYa"}|#{start_lat},#{start_lon}&markers=icon:#{"http://goo.gl/jiZsTa"}|#{end_lat},#{end_lon}"
+    "https://maps.googleapis.com/maps/api/staticmap?size=1024x512&path=weight:3|color:0x000000FF|enc:#{polyline}&markers=icon:#{"http://goo.gl/GpeLJm"}|#{start_lat},#{start_lon}&markers=icon:#{"http://goo.gl/fMjXd2"}|#{end_lat},#{end_lon}"
   end
 
   def polygon_to_s(polygon)
     polygon.exterior_ring.points[0...-1].map { |p| [p.y, p.x] }.to_s
-  end
-
-  def path_to_s(path)
-    path.points.map { |p| [p.y, p.x] }.to_s
   end
 
   def bool(bool)
@@ -119,55 +115,9 @@ module ApplicationHelper
     content_tag :span, bean.try(:user).try(:full_name) || I18n.t(:anonymous), style: ('color:#ccc' if bean.user.nil?)
   end
 
-  def added_by_without_htlm(bean)
+  def added_by_without_html(bean)
     return I18n.t(:bicimapa_team) if bean.try(:origin) == 'IMP' || bean.try(:origin) == 'ORG'
     bean.try(:user).try(:full_name) || I18n.t(:anonymous)
   end
 
-  def active?(options)
-    "class=\"active\"".html_safe if current_page?(options)
-  end
-
-  def active_tree?(urls)
-    urls.each do |url|
-      return 'active' if current_page?(url)
-    end
-    ''
-  end
-
-  def display_notice(notice)
-    if notice
-      content_tag :div, class: 'row' do
-        content_tag :div, class: 'col-md-12' do
-          content_tag :div, class: 'callout callout-info' do
-            content_tag :p, notice
-          end
-        end
-      end
-    end
-  end
-
-  def display_button_bar(bean, namespace = [])
-    content_tag :div, class: 'row' do
-      content_tag :div, class: 'col-md-12' do
-        content_tag :div, class: 'box box-solid' do
-          content_tag :div, class: 'box-body' do
-            concat(paginate(bean)) if action_name == 'index'
-            concat(content_tag(:div, class: 'pull-right') do
-              concat(link_to t(:back), namespace + [bean.class.new],  class: 'btn btn-danger') if action_name == 'show'
-              concat(link_to t(:cancel), namespace + [bean], class: 'btn btn-danger') if action_name == 'edit' || action_name == 'update'
-              concat(link_to t(:cancel), namespace + [bean.class.new], class: 'btn btn-danger') if action_name == 'new'
-              concat(link_to t(:back), namespace + [:root], class: 'btn btn-danger') if action_name == 'index'
-              concat(' ')
-              concat(link_to t(:edit), polymorphic_url(namespace + [bean], action: :edit), class: 'btn btn-primary') if action_name == 'show'
-              concat(submit_tag t(:save), class: 'btn btn-primary') if action_name == 'edit' || action_name == 'update'
-              concat(submit_tag t(:create), class: 'btn btn-primary') if action_name == 'new'
-              concat(link_to t(:new), polymorphic_url(namespace + [bean.model.new], action: :new), class: 'btn btn-primary') if action_name == 'index'
-            end)
-            concat(content_tag(:div, nil, class: 'clearfix'))
-          end
-        end
-      end
-    end
-  end
 end

@@ -6,11 +6,20 @@ class ApplicationController < ActionController::Base
   # def after_sign_in_path_for(resource)
   #  request.env['omniauth.origin'] || stored_location_for(resource) || root_path
   # end
+  
+  include Pundit
+  after_action :verify_authorized, unless: [:active_admin_controller?, :devise_controller?]
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   before_action :set_locale
   before_action :manage_flash
 
   private
+
+  def active_admin_controller?
+      is_a?(ActiveAdmin::BaseController)
+  end
 
   def manage_flash
     gon.flash = []
@@ -34,4 +43,10 @@ class ApplicationController < ActionController::Base
   def default_url_options(_options = {})
     { locale: I18n.locale }
   end
+
+  def user_not_authorized
+    flash[:alert] = "You are not authorized to perform this action."
+    redirect_to(request.referrer || root_path)
+  end
+
 end

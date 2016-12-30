@@ -1,0 +1,82 @@
+<script type="text/javascript">
+function initMap() {
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: new google.maps.LatLng(0, 0),
+    zoom: 1
+  });
+
+  function initPolyline(polyline) {
+
+    google.maps.event.addListener(polyline, 'rightclick', function(e) {
+      if (e.vertex == undefined) {
+        return;
+      }
+      path = this.getPath()
+      if (path.length > 2) {
+        path.removeAt(e.vertex)
+      }
+    });
+
+    function updateForm() {
+      var wkt = new Wkt.Wkt();
+      wkt.fromObject(polyline);
+      document.getElementById('ride_path').value = wkt.write();
+    }
+    
+    updateForm()
+
+    google.maps.event.addListener(polyline.getPath(), 'insert_at', function () {
+      updateForm();
+    });
+
+    google.maps.event.addListener(polyline.getPath(), 'remove_at', function () {
+      updateForm();
+    });
+
+    google.maps.event.addListener(polyline.getPath(), 'set_at', function () {
+      updateForm();
+    });
+  }
+
+  <% if ride.path == nil %>
+  var drawingManager = new google.maps.drawing.DrawingManager({
+    drawingMode: google.maps.drawing.OverlayType.POLYLINE,
+    drawingControl: true,
+    drawingControlOptions: {
+      position: google.maps.ControlPosition.TOP_CENTER,
+      drawingModes: [
+        google.maps.drawing.OverlayType.POLYLINE,
+      ]
+    },
+    polylineOptions: {
+      editable: true
+    }
+  });
+  drawingManager.setMap(map);
+
+  google.maps.event.addListener(drawingManager, 'polylinecomplete', function(polyline) {
+    drawingManager.setMap(null);
+    initPolyline(polyline);
+  });
+
+  <% else %>
+
+  var wkt = new Wkt.Wkt();
+  wkt.read("<%= ride.path %>")
+  polyline = wkt.toObject();
+
+  polyline.setOptions({
+    map: map,
+    editable: <%= !(action_name == "show") %>,
+  })
+
+  bounds = new google.maps.LatLngBounds()
+  polyline.getPath().forEach(function(latlng) { bounds.extend(latlng)})
+  map.fitBounds(bounds)
+
+  initPolyline(polyline);
+
+  <% end %>
+}
+</script>

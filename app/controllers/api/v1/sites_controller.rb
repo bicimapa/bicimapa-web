@@ -50,7 +50,7 @@ module Api
       def get
 
         categories_id = "NULL"
-        categories_id = params[:categories] if !params[:categories].empty?
+        categories_id = params[:categories] if params[:categories].present?
 
         sw = params[:sw].split(",")
         ne = params[:ne].split(",")
@@ -63,15 +63,18 @@ module Api
         query_sites = %{
         select row_to_json(q) as json from (
             select COALESCE(array_to_json(array_agg(row_to_json(t))), '[]') as sites from (
-                    select s.id, s.name, s.category_id,
-                    '/system/categories/icons/' ||
-                    substring(lpad(c.id::text, 9, '0') from 1 for 3) || '/' || 
-                    substring(lpad(c.id::text, 9, '0') from 4 for 3) || '/' ||
-                    substring(lpad(c.id::text, 9, '0') from 7 for 3) || '/original/' || c.icon_file_name || '?' || EXTRACT(EPOCH FROM date_trunc('second', c.icon_updated_at)) as category_icon_url,
-                    '/system/sites/custom_icons/' ||
-                    substring(lpad(s.id::text, 9, '0') from 1 for 3) || '/' || 
-                    substring(lpad(s.id::text, 9, '0') from 4 for 3) || '/' ||
-                    substring(lpad(s.id::text, 9, '0') from 7 for 3) || '/original/' || s.custom_icon_file_name || '?' || EXTRACT(EPOCH FROM date_trunc('second', s.custom_icon_updated_at)) as custom_icon_url,
+                    select s.id, s.name,
+                    COALESCE(
+                      '/system/sites/custom_icons/' ||
+                      substring(lpad(s.id::text, 9, '0') from 1 for 3) || '/' || 
+                      substring(lpad(s.id::text, 9, '0') from 4 for 3) || '/' ||
+                      substring(lpad(s.id::text, 9, '0') from 7 for 3) || '/original/' || s.custom_icon_file_name || '?' || EXTRACT(EPOCH FROM date_trunc('second', s.custom_icon_updated_at))
+                    ,
+                      '/system/categories/icons/' ||
+                      substring(lpad(c.id::text, 9, '0') from 1 for 3) || '/' || 
+                      substring(lpad(c.id::text, 9, '0') from 4 for 3) || '/' ||
+                      substring(lpad(c.id::text, 9, '0') from 7 for 3) || '/original/' || c.icon_file_name || '?' || EXTRACT(EPOCH FROM date_trunc('second', c.icon_updated_at))
+                    ) as icon_url,
                     ST_X(s.lonlat::geometry) longitude,
                     ST_Y(s.lonlat::geometry) latitude
                     from sites s 

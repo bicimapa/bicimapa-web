@@ -1,0 +1,544 @@
+filters = []
+show_reports = false;
+
+infowindow = null;
+
+map = null;
+
+function updateURL() {
+
+  query = querystring.stringify({ 
+    pos: map.getCenter().toUrlValue(8),
+    zoom: map.getZoom(),
+    categories: filters.join(","),
+    reports: (show_reports?1:0)
+  }, {encode: false});
+
+
+  history.pushState(null, document.title, location.protocol + "//" + location.host + "/" + locale + "?" + query);
+
+}
+
+reports = {}
+
+function GC_reports() {
+    
+  //console.log("Number of reports before GC: " + Object.keys(reports).length);
+
+  bounds = map.getBounds();
+
+  for (id in reports) {
+
+    marker = reports[id];
+
+    if (bounds.contains(marker.getPosition())) {
+      continue; //if report is visible keep it
+    }
+
+    marker.setMap(null);
+    delete reports[id]
+  }
+
+  //console.log("Number of reports after GC: " + Object.keys(reports).length);
+  
+}
+
+function showReport(marker, report) {
+  return function() { 
+    window.location = show_report_path + "/" + report.id;
+  };
+}
+
+function updateReports(data) {
+
+  for (i = 0; i < data.reports.length; i++) {
+
+    report = data.reports[i];
+
+    if (reports[report.id]) {
+      continue; //already on map
+    }
+    
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(report.latitude, report.longitude),
+      map: map,
+      icon: "<%= image_path("warn_pin.png") %>",
+    });
+
+    (function(site, report) {
+      google.maps.event.addListener(marker, 'click', showReport(report, site));
+    })(report, marker);
+
+    reports[report.id] = marker;
+  }
+
+  if (Object.keys(reports).length > 15) {
+    GC_reports();
+  }
+
+}
+
+polylines = {}
+
+function GC_lines() {
+    
+  //console.log("Number of polylines before GC: " + Object.keys(polylines).length);
+
+  bounds = map.getBounds();
+
+  loop1:
+  for (id in polylines) {
+
+    polyline = polylines[id];
+
+    points = polyline.getPath().getArray();
+
+    for (i = 0; i < points.length; i++) {
+      point = points[i];
+      if (bounds.contains(point)) {
+        continue loop1; //if polyline is visible keep it
+      }
+    }
+
+    polyline.setMap(null);
+    delete polylines[id]
+  }
+
+  //console.log("Number of polylines after GC: " + Object.keys(polylines).length);
+  
+}
+
+function updateLines(data) {
+
+  for (i = 0; i < data.lines.length; i++) {
+
+    line = data.lines[i];
+
+    if (polylines[line.id]) {
+      continue; //already on map
+    }
+    
+    var wkt = new Wkt.Wkt();
+    wkt.read(line.path);
+    polyline = wkt.toObject();
+
+    polyline.setOptions({
+      map: map,
+      strokeColor: line.color
+    })
+
+    polylines[line.id] = polyline;
+      
+  }
+
+  if (Object.keys(polylines).length > 30) {
+    GC_lines();
+  }
+
+}
+
+markers = {}
+
+function GC_sites() {
+    
+  //console.log("Number of markers before GC: " + Object.keys(markers).length);
+
+  bounds = map.getBounds();
+
+  for (id in markers) {
+
+    marker = markers[id];
+
+    if (bounds.contains(marker.getPosition())) {
+      continue; //if marker is visible keep it
+    }
+
+    marker.setMap(null);
+    delete markers[id]
+  }
+
+  //console.log("Number of markers after GC: " + Object.keys(markers).length);
+  
+}
+
+function showMarker(marker, site) {
+  return function() { 
+    $.get("/api/v1/sites/"+site.id+".json", function(data) {
+      data.site.has_comments = function() { return data.site.comments_count != 0 };
+      data.site.has_pictures = function() { return data.site.pictures_count != 0 };
+
+      template = "<div style=\"min-width:250px\" >";
+      template += "<h4>{{site.name}}</h4>";
+      template += "<p>{{site.description}}</p>";
+      template += '<a href="'+ show_site_path + '/' +'{{site.id}}">';
+      template += "<p class=\"pull-right\" style=\"color:#333 !important\">";
+      template += "<span>";
+      template += "<i class=\"fa fa-comment-o fa-x {{^site.has_comments}}transparent{{/site.has_comments}} \"></i>";
+      template += "{{#site.has_comments}}<span class=\"badge fa-badge\">{{site.comments_count}}</span>{{/site.has_comments}}";
+      template += "{{^site.has_comments}}<span class=\"badge fa-badge\" style=\"background-color: #00A65A !important\" >+</span>{{/site.has_comments}}";
+      template += "</span> ";
+      template += "| ";
+      template += "<span {{^site.has_pictures}}class=\"transparent\"{{/site.has_pictures}} >";
+      template += "<i class=\"fa fa-camera fa-x\"></i>";
+      template += "{{#site.has_pictures}}<span class=\"fa-badge badge\">{{site.pictures_count}}</span>{{/site.has_pictures}}";
+      template += "</span> ";
+      template += "</p>";
+      template += "</a>";
+      template += "<br/>";
+      template += "<br/>";
+      template += '<a href="'+ show_site_path + '/' +'{{site.id}}">'+show_site_label+'</a>';
+      template += "</div>";
+
+      output = Mustache.render(template, data);
+
+      infowindow.setContent(output);
+      infowindow.open(map,marker);
+      ga('send', 'event', 'marker', 'clicked', site.id, 1);
+    });
+  }
+}
+
+function updateSites(data) {
+
+  for (i = 0; i < data.sites.length; i++) {
+
+    site = data.sites[i];
+
+    if (markers[site.id]) {
+      continue; //already on map
+    }
+    
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(site.latitude, site.longitude),
+      map: map,
+      title: site.name,
+      icon: site.icon_url
+    });
+  
+    (function(site, marker) {
+      google.maps.event.addListener(marker, 'click', showMarker(marker, site));
+    })(site, marker);
+
+    markers[site.id] = marker;
+      
+  }
+
+  if (Object.keys(markers).length > 300) {
+    GC_sites();
+  }
+
+}
+
+function clearMap() {
+  for (id in markers) {
+    markers[id].setMap(null);
+  }
+  markers = {};
+
+  for (id in reports) {
+    reports[id].setMap(null);
+  }
+  reports = {};
+
+  for (id in polylines) {
+    polylines[id].setMap(null);
+  }
+  polylines = {};
+}
+
+function updateViewport() {
+
+  bounds = map.getBounds();
+
+  ne = map.getBounds().getNorthEast().toUrlValue(8);
+  sw = map.getBounds().getSouthWest().toUrlValue(8),
+
+  //categories = filters.join(",");
+  
+  $.getJSON("/api/v1/sites/get?ne="+ne+"&sw="+sw+"&categories="+filters.join(","), updateSites);
+  $.getJSON("/api/v1/lines/get?ne="+ne+"&sw="+sw+"&categories="+filters.join(","), updateLines);
+  if (show_reports) {
+    $.getJSON("/api/v1/reports/reports/get?ne="+ne+"&sw="+sw, updateReports);
+  }
+}
+
+function handleRightClick(evt) {
+
+  map_center = map.getCenter().toUrlValue(8);
+
+  new_site_query = querystring.stringify({pos: map_center}, {encode: false});
+  new_site_href = new_site_path + "?" + new_site_query;
+  new_site_link = '<a href="'+new_site_href+'">'+new_site_label+'</a>';
+
+  new_report_query = querystring.stringify({pos: map_center}, {encode: false});
+  new_report_href = new_report_path + "?" + new_report_query;
+  new_report_link = '<a href="'+new_report_href+'">'+new_report_label+'</a>';
+
+  infowindow.setContent(new_site_link + "<br/>" + new_report_link);
+  infowindow.setPosition(evt.latLng);
+  infowindow.open(map);
+}
+
+
+function showCurrentPosition(should_center_map, map) {
+
+  success = function(position) {
+    var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+    if (should_center_map) {
+      map.panTo(pos);
+      map.setZoom(15);
+    }
+
+    new google.maps.Marker({
+      position: pos,
+      map: map,
+      icon: {
+        url: "<%= image_path("marker-location.png") %>",
+        size: new google.maps.Size(96, 96),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(5, 5),
+        scaledSize: new google.maps.Size(10, 10)
+      }
+    });
+
+  }
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success);
+  }
+}
+
+
+function initMap() {
+
+  mapOptions = {
+    center: new google.maps.LatLng(Geo.lat, Geo.lon),
+    zoom: 12,
+    streetViewControlOptions: {
+      position: google.maps.ControlPosition.LEFT_BOTTOM
+    },
+    zoomControlOptions: {
+      position: google.maps.ControlPosition.LEFT_BOTTOM
+    },
+    scaleControl: true
+  }
+
+  map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+  args = querystring.parse();
+
+  should_center_map = true;
+
+  if (args.pos) {
+    should_center_map = false;
+
+    latlng = args.pos.split(",");
+
+    map.panTo(new google.maps.LatLng(latlng[0], latlng[1]));
+
+    if (args.zoom) {
+      map.setZoom(parseInt(args.zoom));
+    }
+
+  }
+
+  showCurrentPosition(should_center_map, map);
+
+  google.maps.event.addListener(map, 'dragend', updateURL);
+  google.maps.event.addListener(map, 'zoom_changed', updateURL);
+  google.maps.event.addListener(map, 'idle', updateViewport);
+  google.maps.event.addListener(map, 'rightclick', handleRightClick);
+
+  infowindow = new google.maps.InfoWindow();
+}
+
+function updateFilters() {
+
+  filters = [];
+
+  $('#sites input').each(function() {
+    t = $(this);
+    category_id = t.val();
+    checked = t.prop('checked');
+
+    if (checked) {
+        filters.push(category_id);
+    }
+  });
+
+  $('#lines input').each(function() {
+    t = $(this);
+    category_id = t.val();
+    checked = t.prop('checked');
+
+    if (checked) {
+      filters.push(category_id);
+    }
+  });
+
+  localStorage.setItem("filters", JSON.stringify(filters.join(",")));
+
+  show_reports = $('#show_reports').prop('checked');
+
+  localStorage.setItem("show_reports", JSON.stringify((show_reports)?1:0));
+
+  updateURL();
+  clearMap();
+  updateViewport();
+}
+
+function initFilters() {
+  
+  args = querystring.parse();
+
+  filters = [];
+  show_reports = false;
+
+  $('#sites input').each(function() {
+    t = $(this);
+    category_id = t.val();
+    checked = t.prop('checked');
+
+    if (checked) {
+        filters.push(category_id);
+    }
+  });
+
+  $('#lines input').each(function() {
+    t = $(this);
+    category_id = t.val();
+    checked = t.prop('checked');
+
+    if (checked) {
+      filters.push(category_id);
+    }
+  });
+
+  parsed = JSON.parse(localStorage.getItem("filters"));
+  if (parsed) {
+    filters = parsed.split(",");
+  }
+
+  if (args.categories) {
+    filters = args.categories.split(",");
+  }
+
+  $('#sites input').each(function() {
+    t = $(this);
+    category_id = t.val();
+    checked = ($.inArray(category_id, filters) != -1);
+    t.prop('checked', checked);
+  });
+
+  $('#lines input').each(function() {
+    t = $(this);
+    category_id = t.val();
+    checked = ($.inArray(category_id, filters) != -1);
+    t.prop('checked', checked);
+  });
+
+  parsed = JSON.parse(localStorage.getItem("show_reports"));
+  if (parsed) {
+    show_reports = (parsed == 1)
+  }
+
+  if (args.reports) {
+    show_reports = (args.reports == 1);
+  }
+
+  $('#show_reports').prop('checked', show_reports);
+}
+
+$(function() {
+
+  $("#refresh_btn").click(function() {
+      updateFilters() 
+  });
+
+  initFilters();
+
+  //filters helpers
+
+  $('#all_sites').click(function() {
+    $('#sites input').each(function() {
+      $(this).prop('checked', true);
+    }) 
+  });
+
+  $('#none_sites').click(function() {
+    $('#sites input').each(function() {
+      $(this).prop('checked', false);
+    }); 
+  });
+
+  $('#all_lines').click(function() {
+    $('#lines input').each(function() {
+      $(this).prop('checked', true);
+    }); 
+  });
+
+  $('#none_lines').click(function() {
+    $('#lines input').each(function() {
+      $(this).prop('checked', false);
+    }); 
+  }); 
+
+  //search box
+
+  $('#q').val(localStorage.getItem("query"));
+  localStorage.removeItem("query");
+        
+  $('#search_btn').click(function() {
+
+    q = $('#q').val();
+
+    url = "https://maps.googleapis.com/maps/api/geocode/json";
+
+    $.get(url, {
+      address: q,
+      sensor: false,
+      key: "<%= ENV['GOOGLE_MAP_API_KEY'] %>",
+    }, function (data) {
+      if (data.results.length == 1) {
+        lat = data.results[0].geometry.location.lat;
+        lng = data.results[0].geometry.location.lng;
+        localStorage.setItem("query", q);
+        window.location = gon.root_url+"?pos="+lat+","+lng+"&zoom=17"
+      }
+      else if (data.results.length >= 2) {
+        content = "<ul>";
+        for (result in data.results) {
+          content += "<li><a onclick=\"localStorage.setItem('query', '#{result.formatted_address}')\" href=\"#{gon.root_url}?pos=#{result.geometry.location.lat},#{result.geometry.location.lng}&zoom=17\">#{result.formatted_address}</a></li>";
+          content += "</ul>";
+        }
+        $("#search_btn").popover("destroy");
+        $("#search_btn").popover({content: content, title: "<%= I18n.t(:multiple_results) %>", html: true, placement: 'bottom', trigger: 'manual|focus'}).popover('show');
+      }
+      else {
+        $("#search_btn").popover("destroy");
+        $("#search_btn").popover({content: "<%= I18n.t(:nothing_found) %>", placement: 'bottom', trigger: 'manual|focus'}).popover('show');
+      }
+    });
+  });
+
+  $('#q').keydown(function(e) {
+    if (e.keyCode == 13) {
+      $('#search_btn').trigger("click");
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  $("#filters_btn").click(function() {
+    $("#filters").css("right","20px");
+    $("#filters_btn").hide();
+  });
+
+  $("#close_btn").click(function() {
+    $("#filters").css("right","-250px");
+    $("#filters_btn").show();
+  });
+
+});
+

@@ -1,0 +1,86 @@
+<script type="text/javascript">
+function initMap() {
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: new google.maps.LatLng(0, 0),
+    zoom: 1
+  });
+
+  function initMarker(marker) {
+
+    var icons = [];
+
+    <% Category.where(variety: "SIT").all.each do |category| %>
+      icons["<%= category.id %>"] = "<%= category.icon.url %>";
+    <% end %>
+
+    $("#site_category_id").change(function() {
+      marker.setOptions({
+        icon: icons[$(this).val()]
+      });
+    });
+
+    <% if site.lonlat == nil %>
+      marker.setOptions({
+        icon: icons[$("#site_category_id").val()]
+      });
+    <% end %>
+
+
+    function updateForm() {
+      var wkt = new Wkt.Wkt();
+      wkt.fromObject(marker);
+      document.getElementById('site_lonlat').value = wkt.write();
+    }
+    
+    updateForm()
+
+    google.maps.event.addListener(marker, 'dragend', function () {
+      updateForm();
+    });
+  }
+
+  <% if site.lonlat == nil %>
+  var drawingManager = new google.maps.drawing.DrawingManager({
+    drawingMode: google.maps.drawing.OverlayType.MARKER,
+    drawingControl: true,
+    drawingControlOptions: {
+      position: google.maps.ControlPosition.TOP_CENTER,
+      drawingModes: [
+        google.maps.drawing.OverlayType.MARKER,
+      ]
+    },
+    markerOptions: {
+      editable: true
+    }
+  });
+  drawingManager.setMap(map);
+
+  google.maps.event.addListener(drawingManager, 'markercomplete', function(marker) {
+    drawingManager.setMap(null);
+    initMarker(marker);
+  });
+
+  <% else %>
+
+  var wkt = new Wkt.Wkt();
+  wkt.read("<%= site.lonlat %>")
+  marker = wkt.toObject();
+
+  marker.setOptions({
+    map: map,
+    icon: "<%= site.icon_url %>",
+    draggable: <%= !(action_name == "show") %>
+  })
+
+  map.setOptions({
+	center: marker.getPosition(),
+	zoom: 15
+  })
+
+  initMarker(marker);
+
+  <% end %>
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY']%>&libraries=drawing&callback=initMap"></script>

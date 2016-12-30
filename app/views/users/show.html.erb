@@ -1,0 +1,131 @@
+<div class="row">
+
+  <div class="col-md-3">
+    <!-- Default box -->
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title"><%= t :picture %></h3>
+      </div>
+      <div class="box-body">
+        <%= image_tag avatar_url(@user), alt: t(:avatar) %> 
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <!-- Default box -->
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title"><%= t :my_profile %></h3>
+      </div>
+      <div class="box-body">
+        <table class="table" style="table-layout:fixed">
+          <tbody>
+            <tr>
+              <th style="width: 50%"><%= t :last_name %></th>
+              <td style="width: 50%"><%= @user.last_name %></td>
+            </tr>
+            <tr>
+              <th><%= t :first_name %></th>
+              <td><%= @user.first_name %></td>
+            </tr>
+            <tr>
+              <th><%= t :email %></th>
+              <td><%= @user.email %></td>
+            </tr>
+            <tr>
+              <th><%= t :receive_notifications %></th>
+              <td><%= bool(@user.receive_notifications) %></td>
+            </tr>
+            <tr>
+              <th><%= t :integration_with_facebook %></th>
+              <td>
+                <% if @user.facebook_uid.nil? %>
+                  <button type="button" onclick="linkToFacebookProfile()" class="btn btn-primary"><%= t(:link_to_facebook_profile) %></button>
+                <% else %>
+                  <%= link_to t(:unlink_facebook_profile), {:controller => 'profiles', :action => 'unlink_facebook_profile', :token => @user.token }, :confirm => "Are you sure you want to unlink your facebook profile ?", :method => :delete, class: "btn btn-warning" %>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-solid">
+      <div class="box-body">
+        <div class="pull-right">
+          <%= link_to t(:back), :root, class: 'btn btn-danger' %>
+          <% if policy(@user).edit? %>
+            <%= link_to t(:edit), { controller: :users, action: :edit }, class:'btn btn-default' %>
+          <% end %>
+        </div>
+        <div class="clearfix">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+
+function linkToFacebookProfile() {
+
+  FB.getLoginStatus(function(response) {
+  if (response.status === 'connected') {
+    // the user is logged in and has authenticated your
+    // app, and response.authResponse supplies
+    // the user's ID, a valid access token, a signed
+    // request, and the time the access token 
+    // and signed request each expire
+    var uid = response.authResponse.userID;
+    var accessToken = response.authResponse.accessToken;
+  
+    console.log("User uid: "+ uid);
+
+    if (confirm("Are you sure you want to link you Facebook profile to your account (this can be undone later")) {
+
+    $.post("http://bicimapa.ylecuyer.co.vu:3000/profile/link_to_facebook_profile", { token: "<%= @user.token %>", facebook_id: uid}, function (success) {
+
+          location.reload();
+        
+      });
+
+    }
+
+  } else if (response.status === 'not_authorized') {
+
+
+    alert("You have not authorized this app");
+    // the user is logged in to Facebook, 
+    // but has not authenticated your app
+  } else {
+    // the user isn't logged in to Facebook.
+    alert("Log in to Facebook before linking your profile to your Facebook account");
+  }
+ });
+
+}
+
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '<%= ENV["FACEBOOK_APP_ID"] %>',
+    xfbml      : true,
+    version    : 'v2.1'
+  });
+};
+
+(function(d, s, id){
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+</script>

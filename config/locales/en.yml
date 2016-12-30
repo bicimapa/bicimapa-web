@@ -8,6 +8,11 @@ en:
   access_token: Access token
   access_token_secret: Access token secret
   activated: Activated
+  active_admin:
+    dashboard: Dashboard
+    dashboard_welcome:
+      call_to_action: Call to action
+      welcome: Welcome
   active_users: Active users
   add_new_report: Add new report
   add_new_site: Add new site
@@ -58,7 +63,7 @@ en:
   contact_us: Contact us
   control_panel: Control panel
   create: Create
-  create_new_ride: Add you're ride
+  create_new_ride: Add your ride
   created_at: Created at
   custom_icon: Custom icon
   dashboard: Dashboard
@@ -136,6 +141,7 @@ en:
   last_online_on: Last online on
   last_update: Last update
   latitude: Latitude
+  length: Length
   lines: Lines
   link_to_facebook_profile: Link to facebook profile
   list_of_icons_available: List of icons available

@@ -25,5 +25,5 @@ node :pictures_count do |site|
 end
 
 node :added_by do |site|
-  added_by_without_htlm(site)
+  added_by_without_html(site)
 end

@@ -1,6 +1,19 @@
 class Site < ActiveRecord::Base
 
   after_update :notify_update
+  
+  scope :not_reviewed, -> { where(has_been_reviewed: false) }
+  scope :has_custom_icon, -> { where("custom_icon_file_name is not null") }
+  scope :has_picture, -> { where("picture_1_file_name is not null or picture_2_file_name is not null or picture_3_file_name is not null") }
+  scope :has_comments, -> { joins(:comments).distinct }
+
+  def activate!
+    update(has_been_reviewed: true, is_active: true)
+  end
+
+  def deactivate!
+    update(has_been_reviewed: true, is_active: false)
+  end
 
   acts_as_commentable
   acts_as_paranoid
@@ -19,27 +32,50 @@ class Site < ActiveRecord::Base
 
   validates :name, presence: true
   validates :category, presence: true
+  validates :lonlat, presence: true
 
   paginates_per 20 # 2cols*10lines
 
-  has_attached_file :picture_1, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  has_attached_file :picture_1, :styles => { :medium => "660x337>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :picture_1, :content_type => /\Aimage\/.*\Z/
 
-  has_attached_file :picture_2, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  has_attached_file :picture_2, :styles => { :medium => "660x337>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :picture_2, :content_type => /\Aimage\/.*\Z/
 
-  has_attached_file :picture_3, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
+  has_attached_file :picture_3, :styles => { :medium => "660x337>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :picture_3, :content_type => /\Aimage\/.*\Z/
 
   has_attached_file :custom_icon, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :custom_icon, :content_type => /\Aimage\/.*\Z/
 
+  def latitude=(value)
+    factory = RGeo::Geographic.spherical_factory(srid: 4326)
+    self.lonlat = factory.point(longitude, value)
+  end
+
   def latitude
     lonlat.try(:y)
   end
 
+  def longitude=(value)
+    factory = RGeo::Geographic.spherical_factory(srid: 4326)
+    self.lonlat = factory.point(value, latitude)
+  end
+
   def longitude
     lonlat.try(:x)
+  end
+
+  def has_custom_icon
+    custom_icon.exists?
+  end
+
+  def has_picture
+    picture_1.exists? || picture_2.exists? || picture_3.exists?
+  end
+
+  def has_comments
+    comments.count > 0
   end
 
   def icon_url

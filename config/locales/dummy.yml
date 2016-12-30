@@ -8,6 +8,14 @@ dummy:
   access_token: "■■■■■■■"
   access_token_secret: "■■■■■■■"
   activated: "■■■■■■■"
+  active_admin:
+    dashboard: !binary |-
+      4pag4pag4pag4pag4pag4pag4pag
+    dashboard_welcome:
+      call_to_action: !binary |-
+        4pag4pag4pag4pag4pag4pag4pag
+      welcome: !binary |-
+        4pag4pag4pag4pag4pag4pag4pag
   active_users: "■■■■■■■"
   add_new_report: "■■■■■■■"
   add_new_site: "■■■■■■■"

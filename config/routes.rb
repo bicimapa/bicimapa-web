@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     namespace :reports do
       resources :categories, only: [:index]
       get 'category/:id/sub_categories' => 'sub_categories#index'
+      resources :reports, only: [] do 
+        get 'get', on: :collection
+      end
     end
 
     resources :categories, only: [:index]
@@ -35,57 +38,15 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'sessions', registrations: 'registrations' }
+  devise_for :users, only: :omniauth_callbacks, controllers: {omniauth_callbacks: 'users/omniauth_callbacks'}
 
   scope '(:locale)', locale: /en|es|fr|dummy/ do
 
-    namespace :moderator do
-      get '/' => 'static#index'
-      get '/sites/review' => 'sites#review', as: 'sites_review'
-      resources :sites, only: [:index, :show, :edit, :update, :destroy]
-      resources :zones, only: [:index, :show]
-      resources :lines, only: [:index, :create, :show, :edit, :new, :update]
-      get '/sites/:id/activate' => 'sites#activate'
-      get '/sites/:id/deactivate' => 'sites#deactivate'
-    end
-
-    namespace :admin do
-      root to: 'static#index'
-
-      get '/import/kml' => 'import#kml'
-      post '/import/kml' => 'import#selection'
-      put '/import/kml' => 'import#import'
-      get '/' => 'static#index'
-      get '/config' => 'static#configuration'
-      resources :zones
-      resources :lines
-      get '/sites/review' => 'sites#review'
-      resources :sites
-      resources :categories
-      get '/users' => 'users#index'
-      get '/sites/:id/activate' => 'sites#activate'
-      get '/sites/:id/deactivate' => 'sites#deactivate'
-      get '/sites/:id/remove_custom_icon' => 'sites#remove_custom_icon', as: :site_remove_custom_icon
-      resources :users, except: [:new, :create]
-      resources :comments
-      get '/newsletters/extract_users' => 'newsletters#extract_users'
-      get '/newsletters/extract_newsletters' => 'newsletters#extract_newsletters'
-      get '/newsletters/extract_users_and_newsletters' => 'newsletters#extract_users_and_newsletters'
-      resources :newsletters
-
-      namespace :reports do
-        resources :reports
-        resources :categories
-        resources :sub_categories
-        resources :statuses
-        
-        put '/reports/:id/update_status' => 'reports#update_status'
-      end
-
-    end
+    devise_for :users, skip: :omniauth_callbacks
+    ActiveAdmin.routes(self)
 
     resources :rides
-    resource 'profile'
+    resources :users, only: [:show]
     post '/profile/link_to_facebook_profile' => 'profiles#link_to_facebook_profile'
     delete '/profile/unlink_facebook_profile/:token' => 'profiles#unlink_facebook_profile'
 
@@ -100,13 +61,13 @@ Rails.application.routes.draw do
     get '/tos' => 'static#tos'
     get '/team' => 'static#team'
     get '/press' => 'static#press'
-    get '/ranking' => 'static#ranking'
 
     get '/newsletters/unsubscribe/:email' => 'newsletters#unsubscribe'
     delete '/newsletters/unsubscribe/:email' => 'newsletters#destroy'
 
 
     resources :newsletters
+    resources :users
 
     root to: 'static#index'
   end

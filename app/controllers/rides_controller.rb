@@ -5,6 +5,8 @@ class RidesController < ApplicationController
   # GET /rides.json
   def index
 
+    authorize Ride
+
     if Rails.env.production?
       ip = request.remote_ip
     else
@@ -25,30 +27,27 @@ class RidesController < ApplicationController
   # GET /rides/1
   # GET /rides/1.json
   def show
+    authorize @ride
   end
 
   # GET /rides/new
   def new
+    authorize Ride
     @ride = Ride.new
   end
 
   # GET /rides/1/edit
   def edit
+    authorize @ride
   end
 
   # POST /rides
   # POST /rides.json
   def create
 
-    rp = ride_params[:path]
-    
-    unless rp == ""
-      json = JSON.parse rp
-      rp = "LINESTRING(" + json.map { |x| "#{x[1]} #{x[0]}" }.join(",") + ")"
-    end
-    
+    authorize Ride
+
     @ride = Ride.new(ride_params)
-    @ride.path = rp
     @ride.user = current_user
 
     respond_to do |format|
@@ -66,6 +65,9 @@ class RidesController < ApplicationController
   # PATCH/PUT /rides/1
   # PATCH/PUT /rides/1.json
   def update
+  
+    authorize @ride
+
     respond_to do |format|
       if @ride.update(ride_params)
         format.html { redirect_to @ride, notice: 'Ride was successfully updated.' }
@@ -80,6 +82,7 @@ class RidesController < ApplicationController
   # DELETE /rides/1
   # DELETE /rides/1.json
   def destroy
+    authorize @ride
     @ride.destroy
     respond_to do |format|
       format.html { redirect_to rides_url, notice: 'Ride was successfully destroyed.' }

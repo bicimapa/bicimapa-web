@@ -8,6 +8,11 @@ es:
   access_token: Access token
   access_token_secret: Access token secret
   activated: Activado
+  active_admin:
+    dashboard: Dashboard
+    dashboard_welcome:
+      call_to_action: Call to action
+      welcome: Welcome
   active_users: Usuarios activos
   add_new_report: Hacer un reporte
   add_new_site: Agregar un sitio
@@ -136,6 +141,7 @@ es:
   last_online_on: Ultima conexion el
   last_update: Ultima actualizacion
   latitude: Latitud
+  length: Distancia
   lines: Rutas
   link_to_facebook_profile: Conectar con Facebook
   list_of_icons_available: Listado de iconos disponibles
@@ -288,7 +294,7 @@ es:
   views:
     pagination:
       first: Primero
-      last: "último"
+      last: último
       next: Siguiente
       previous: Previo
       truncate: "..."

@@ -8,6 +8,11 @@ fr:
   access_token: Access token
   access_token_secret: Access token secret
   activated: Activé
+  active_admin:
+    dashboard: Dashboard
+    dashboard_welcome:
+      call_to_action: Call to action
+      welcome: Welcome
   active_users: Utilisateurs actifs
   add_new_report: Ajouter un signalement
   add_new_site: Ajouter un point
@@ -27,7 +32,7 @@ fr:
   anonymous: Anonyme
   api_keys: Api keys
   app_id: App
-  are_you_sure?: "Êtes vous sûr?"
+  are_you_sure?: Êtes vous sûr?
   are_you_sure_you_want_to_unsubscribe_from_the_newsletter: Etes vous sûr de vouloir vous désabonner de la newsletter ?
   avatar: Photo
   aws_access_key_id: Aws access key
@@ -136,6 +141,7 @@ fr:
   last_online_on: Dernière connexion le
   last_update: Dernière mise à jour
   latitude: Latitude
+  length: Distance
   lines: Routes
   link_to_facebook_profile: Lier son compte à Facebook
   list_of_icons_available: Liste des icônes disponibles

@@ -1,0 +1,83 @@
+<script type="text/javascript">
+function initMap() {
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: new google.maps.LatLng(0, 0),
+    zoom: 1
+  });
+
+  function initPolygon(polygon) {
+    google.maps.event.addListener(polygon, 'rightclick', function(e) {
+      if (e.vertex == undefined) {
+        return;
+      }
+      path = this.getPath()
+      if (path.length > 3) {
+        path.removeAt(e.vertex)
+      }
+    });
+
+    function updateForm() {
+      var wkt = new Wkt.Wkt();
+      wkt.fromObject(polygon);
+      document.getElementById('zone_polygon').value = wkt.write();
+    }
+    
+    updateForm()
+
+    google.maps.event.addListener(polygon.getPath(), 'insert_at', function () {
+      updateForm();
+    });
+
+    google.maps.event.addListener(polygon.getPath(), 'remove_at', function () {
+      updateForm();
+    });
+
+    google.maps.event.addListener(polygon.getPath(), 'set_at', function () {
+      updateForm();
+    });
+  }
+
+  <% if zone.polygon == nil %>
+  var drawingManager = new google.maps.drawing.DrawingManager({
+    drawingMode: google.maps.drawing.OverlayType.POLYGON,
+    drawingControl: true,
+    drawingControlOptions: {
+      position: google.maps.ControlPosition.TOP_CENTER,
+      drawingModes: [
+        google.maps.drawing.OverlayType.POLYGON,
+      ]
+    },
+    polygonOptions: {
+      editable: true
+    }
+  });
+  drawingManager.setMap(map);
+
+  google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polygon) {
+    drawingManager.setMap(null);
+    initPolygon(polygon);
+  });
+
+  <% else %>
+
+  var wkt = new Wkt.Wkt();
+  wkt.read("<%= zone.polygon %>")
+  polygon = wkt.toObject();
+
+  polygon.setOptions({
+    map: map,
+    editable: <%= !(action_name == "show") %>
+  })
+
+  bounds = new google.maps.LatLngBounds()
+  polygon.getPath().forEach(function(latlng) { bounds.extend(latlng)})
+  map.fitBounds(bounds)
+
+  initPolygon(polygon);
+
+  <% end %>
+
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY']%>&libraries=drawing&callback=initMap"></script>

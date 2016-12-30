@@ -1,0 +1,3 @@
+class ZonePolicy < ApplicationPolicy
+
+end
