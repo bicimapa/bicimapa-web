@@ -6,6 +6,12 @@ app:
     - db
   volumes:
     - .:/usr/src/app
+  volumes_from:
+    - bundler
+bundler:
+  image: busybox
+  volumes:
+    - /gems
 db:
   image: mdillon/postgis
   ports:
@@ -15,4 +21,4 @@ db:
     - POSTGRES_PASSWORD=bicimapa
     - POSTGRES_DB=bicimapa
   volumes:
-    - ./docker/pgdata:/var/lib/postgresql/data
+    - /var/lib/postgresql/data

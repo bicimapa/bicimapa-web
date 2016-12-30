@@ -42,7 +42,7 @@ class StaticController < ApplicationController
     }
 
     results = Line.connection.execute(query_lines)
-    @lines_as_json = results.first['json'].html_safe
+    @lines_as_json = (results.first['json'] || '{}' ).html_safe
 
     query_reports = %{
       select array_to_json(array_agg(row_to_json(t))) as json from ( 
