@@ -1,7 +1,14 @@
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0) [![Code Climate](https://img.shields.io/codeclimate/github/bicimapa/bicimapa-web.svg)](https://codeclimate.com/github/bicimapa/bicimapa-web) [![Dependency Status](https://www.versioneye.com/user/projects/5897f3f3f55eb2003257f64a/badge.svg)](https://www.versioneye.com/user/projects/5897f3f3f55eb2003257f64a)
+
 # bicimapa-web
 
-## How to run with docker
+Crowdsourced map for urban cyclists. 🚴 [https://bicimapa.com](https://bicimapa.com)
 
+![Logo Bicimapa](https://github.com/bicimapa/bicimapa-assets/blob/master/logo%20bicimapa.png?raw=true)
+
+![Screenshot main page](https://github.com/bicimapa/bicimapa-assets/blob/master/screenshot_main_page.png?raw=true)
+
+## How to run with docker 🐳
 Clone the project
 
     git clone git@github.com:bicimapa/bicimapa-web.git
@@ -30,4 +37,18 @@ Run
 
     docker-compose up
     
-Then go to [http://localhost:3000](http://localhost:3000) or [http://localhost:3000/en/admin](http://localhost:3000/en/admin) (login: ```admin@example.com```, password: ```password```)
+Then go to 
+ * [http://localhost:3000](http://localhost:3000) 
+ * [http://localhost:3000/en/admin](http://localhost:3000/en/admin) (login: ```admin@example.com```, password: ```password```)
+
+## What is included?
+
+ * Spacial database (PostGIS)
+ * API for mobile apps (Android / iOS)
+ * Administration backend
+ * Optimized map in frontpage
+ 
+## License
+
+[GPL v3](https://github.com/bicimapa/bicimapa-web/blob/master/LICENSE.txt)
+ 
