@@ -17,8 +17,6 @@ ActiveRecord::Schema.define(version: 20160317005314) do
   enable_extension "plpgsql"
   enable_extension "fuzzystrmatch"
   enable_extension "postgis"
-  enable_extension "postgis_tiger_geocoder"
-  enable_extension "postgis_topology"
 
   create_table "announcements", force: :cascade do |t|
     t.text     "body"
