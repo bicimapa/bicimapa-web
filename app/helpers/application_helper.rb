@@ -26,7 +26,7 @@ module ApplicationHelper
     end_lat = path.points[-1].y.round 5
     end_lon = path.points[-1].x.round 5
 
-    "https://maps.googleapis.com/maps/api/staticmap?size=1024x512&path=weight:3|color:0x000000FF|enc:#{polyline}&markers=icon:#{"http://goo.gl/GpeLJm"}|#{start_lat},#{start_lon}&markers=icon:#{"http://goo.gl/fMjXd2"}|#{end_lat},#{end_lon}"
+    "https://maps.googleapis.com/maps/api/staticmap?size=1024x512&path=weight:3|color:0x000000FF|enc:#{polyline}&markers=anchor:center|icon:#{"http://goo.gl/GpeLJm"}|#{start_lat},#{start_lon}&markers=anchor:center|icon:#{"http://goo.gl/fMjXd2"}|#{end_lat},#{end_lon}"
   end
 
   def polygon_to_s(polygon)
