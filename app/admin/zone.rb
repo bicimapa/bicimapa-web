@@ -56,6 +56,6 @@ ActiveAdmin.register Zone do
   end
 
   filter :name
-  filter :moderators, as: :select, collection: User.where(is_admin: true)
+  #filter :moderators, as: :select, collection: User.where(is_admin: true)
 
 end
