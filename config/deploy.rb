@@ -2,7 +2,7 @@
 lock '3.4.0'
 
 set :application, 'bicimapa'
-set :repo_url, 'git@bitbucket.org:ylecuyer/bicimapa.git'
+set :repo_url, 'git@github.com:bicimapa/bicimapa-web.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -24,7 +24,7 @@ set :deploy_to, '/home/deploy/bicimapa'
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, fetch(:linked_files, []).push('config/application.yml', 'ciclovias.json', 'ciclorrutas.json')
+set :linked_files, fetch(:linked_files, []).push('config/application.yml', 'ciclovias.json', 'ciclorrutas.json', 'config/database.yml', 'config/environments/production.rb')
 
 # Default value for linked_dirs is []
 # set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
