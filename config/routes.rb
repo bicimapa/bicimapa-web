@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/graphql"
+  end
+
+  post '/graphql', to: 'graphql#execute'
 
   api_version(module: 'api/v1', path: { value: 'api/v1' }) do
     get 'session/get_user_token_from_facebook_id' => 'sessions#user_token_from_facebook_id'

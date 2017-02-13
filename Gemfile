@@ -45,6 +45,7 @@ gem 'email_validator'
 gem 'premailer-rails'
 gem 'sitemap_generator'
 gem 'metamagic'
+gem 'graphql'
 
 gem 'simplecov', group: [:development, :test]
 
@@ -62,6 +63,7 @@ group :development do
   gem 'capistrano-rvm'
   gem 'capistrano-rails'
   gem 'capistrano-passenger'
+  gem 'graphiql-rails'
 end
 
 group :test do
