@@ -6,8 +6,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     
     auth = request.env['omniauth.auth']
 
-    app = FbGraph::Application.new(ENV['FACEBOOK_APP_ID'], secret: ENV['FACEBOOK_SECRET_ID'])
-    facebook_user = FbGraph::User.fetch(auth.uid, access_token: app.get_access_token)
+    auth = FbGraph2::Auth.new(ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET_ID'])
+    access_token = auth.access_token!
+    user = FbGraph2::User.new(auth.uid).authenticate(access_token)
+    facebook_user = user.fetch
 
     unless facebook_user.permissions.include? :email
       return redirect_to new_user_registration_url, flash: { alert: I18n.t(:facebook_email_alert)}
