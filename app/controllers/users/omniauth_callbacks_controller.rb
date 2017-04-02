@@ -6,8 +6,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     
     auth = request.env['omniauth.auth']
 
-    auth = FbGraph2::Auth.new(ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET_ID'])
-    access_token = auth.access_token!
+    fbgraph_auth = FbGraph2::Auth.new(ENV['FACEBOOK_APP_ID'], ENV['FACEBOOK_SECRET_ID'])
+    access_token = fbgraph_auth.access_token!
     user = FbGraph2::User.new(auth.uid).authenticate(access_token)
     facebook_user = user.fetch
 
