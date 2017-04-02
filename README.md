@@ -41,6 +41,14 @@ Then go to
  * [http://localhost:3000](http://localhost:3000) 
  * [http://localhost:3000/en/admin](http://localhost:3000/en/admin) (login: ```admin@example.com```, password: ```password```)
 
+## Deploy
+
+Run
+
+    eval $(ssh-agent)
+    ssh-add ~/.ssh/id_rsa
+    cap production deploy
+
 ## What is included?
 
  * Spacial database (PostGIS)
