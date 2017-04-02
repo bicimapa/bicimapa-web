@@ -11,7 +11,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     user = FbGraph2::User.new(auth.uid).authenticate(access_token)
     facebook_user = user.fetch
 
-    unless facebook_user.permissions.include? :email
+    unless facebook_user.permissions.select { |p| p.permission == "email"}.all? { |p| p.status == "granted" }
       return redirect_to new_user_registration_url, flash: { alert: I18n.t(:facebook_email_alert)}
     end
 
