@@ -56,7 +56,7 @@ GEM
     arel (6.0.3)
     arrayfields (4.9.2)
     ast (2.2.0)
-    attr_required (1.0.0)
+    attr_required (1.0.1)
     aws-sdk (2.2.13)
       aws-sdk-resources (= 2.2.13)
     aws-sdk-core (2.2.13)
@@ -170,11 +170,12 @@ GEM
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
     fattr (2.2.2)
-    fb_graph (2.7.17)
+    fb_graph2 (0.9.1)
+      activesupport (>= 3.2)
       httpclient (>= 2.4)
-      multi_json (>= 1.3)
-      rack-oauth2 (>= 0.14.4)
-      tzinfo
+      multi_json
+      rack-oauth2 (>= 1.1)
+      url_safe_base64
     figaro (1.1.1)
       thor (~> 0.14)
     flay (2.7.0)
@@ -221,7 +222,7 @@ GEM
     httparty (0.13.7)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
-    httpclient (2.7.1)
+    httpclient (2.8.3)
     i18n (0.7.0)
     i18n-tasks (0.9.2)
       activesupport (>= 4.0.2)
@@ -346,7 +347,7 @@ GEM
     rabl (0.11.8)
       activesupport (>= 2.3.14)
     rack (1.6.4)
-    rack-oauth2 (1.2.1)
+    rack-oauth2 (1.6.1)
       activesupport (>= 2.3)
       attr_required (>= 0.0.5)
       httpclient (>= 2.4)
@@ -508,6 +509,7 @@ GEM
       equalizer (~> 0.0.9)
       parser (~> 2.2.2)
       procto (~> 0.0.2)
+    url_safe_base64 (0.2.2)
     versionist (1.4.1)
       activesupport (>= 3)
       railties (>= 3)
@@ -542,7 +544,7 @@ DEPENDENCIES
   devise-i18n
   email_validator
   exception_notification
-  fb_graph
+  fb_graph2
   figaro
   geokit-rails
   globalize
